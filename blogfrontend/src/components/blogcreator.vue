@@ -178,6 +178,7 @@ export default {
       "Political",
       "Photography",
       "Practical",
+      "Programming",
       "Real State",
       "SEO",
       "Shopping",

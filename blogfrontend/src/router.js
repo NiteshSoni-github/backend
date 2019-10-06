@@ -10,7 +10,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('./components/middlebar.vue')
+      component: () => import('./components/home.vue')
     },
     {
       path: '/about',
@@ -24,11 +24,6 @@ export default new Router({
       path: '/showblog',
       name: 'showblog',
       component: () => import('./components/showblogs.vue')
-    },
-    {
-      path: '/middlebar',
-      name: 'middlebar',
-      component: () => import('./components/middlebar.vue')
     },
     {
       path: '/register',
@@ -49,6 +44,11 @@ export default new Router({
       path: '/manageblog',
       name: 'manageblog',
       component: () => import('./components/manageblog.vue')
+    },
+    {
+      path: '/editblog',
+      name: 'editblog',
+      component: () => import('./components/editblog.vue')
     }
   ]
 })

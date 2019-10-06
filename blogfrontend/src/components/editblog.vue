@@ -8,7 +8,7 @@
           <v-row>
             <v-col cols="12">
               <v-card-actions class="mx-n2">
-                <span class="title">CREATE BLOG</span>
+                <span class="title">EDIT BLOG</span>
                 <div class="flex-grow-1"></div>
                 <v-btn
                   :loading="loading3"
@@ -178,6 +178,7 @@ export default {
       "Political",
       "Photography",
       "Practical",
+      "Programming",
       "Real State",
       "SEO",
       "Shopping",

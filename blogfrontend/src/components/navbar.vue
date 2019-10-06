@@ -2,11 +2,16 @@
   <div>
     <div class="d-none d-md-block mb-12">
       <v-app-bar fixed :elevation="2" class="px-2">
-        <v-app-bar-nav-icon v-on:click="drawer = !drawer" class>
+        <!-- <v-app-bar-nav-icon v-on:click="drawer = !drawer" class>
           <v-icon>menu</v-icon>
-        </v-app-bar-nav-icon>
-
-        <v-toolbar-title>Eloopin</v-toolbar-title>
+        </v-app-bar-nav-icon> -->
+      
+        <v-toolbar-title>
+         
+        <v-img src="./../../public/logo.png" alt="avatar" max-width="140"
+      max-height="50"></v-img>
+        
+        </v-toolbar-title>
 
         <div class="flex-grow-1"></div>
         <span v-if="seen" class="d-none d-md-block navbuttons">
@@ -18,7 +23,7 @@
 
           <router-link to="/showblog" exact>
             <v-btn depressed class="mx-2">
-              <v-icon left>remove_red_eye</v-icon>Show BLOG
+              <v-icon left>remove_red_eye</v-icon>BLOGS  
             </v-btn>
           </router-link>
         
@@ -30,32 +35,13 @@
 
           <router-link to="/manageblog" exact>
             <v-btn depressed class="mx-2">
-              <v-icon left>settings_applications</v-icon>Manage Blog
+              <v-icon left>settings_applications</v-icon>Manage Blogs
             </v-btn>
           </router-link>
 
-          <v-btn v-on:click="seen = !seen" icon class="mx-2 searchOpenAndClose">
-            <v-icon>search</v-icon>
-          </v-btn>
         </span>
 
-        <v-text-field
-          v-if="!seen"
-          class="mx-2 purple--text"
-          :autofocus="true"
-          background-color="#eee"
-          color="primary"
-          clearable
-          flat
-          hide-details
-          placeholder="Search"
-          prepend-inner-icon="search"
-          solo-inverted
-        ></v-text-field>
-
-        <v-btn v-on:click="seen = !seen" v-if="!seen" icon class="mx-2 searchOpenAndClose">
-          <v-icon>close</v-icon>
-        </v-btn>
+     
 
         <div class="flex-grow-1"></div>
 
@@ -179,12 +165,12 @@
             </router-link>
           </v-tab>
           <v-tab :href="'#tab3'">
-            <router-link to="/event" exact>
+            <router-link to="/createblog" exact>
               <v-icon left>create</v-icon>Create Blog
             </router-link>
           </v-tab>
           <v-tab :href="'#tab4'">
-            <router-link to="/consult" exact>
+            <router-link to="/manageblog" exact>
               <v-icon left>settings_applications</v-icon>Manage blogs
             </router-link>
           </v-tab>
@@ -224,6 +210,7 @@ export default {
 
       items: [
         { title: "Profile", icon: "perm_identity" },
+        // { title: "Suggestion or Feedback", icon: "assignment" },
       ],
       sheet: false,
       tiles: [
