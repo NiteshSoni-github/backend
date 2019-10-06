@@ -224,9 +224,6 @@ export default {
 
       items: [
         { title: "Profile", icon: "perm_identity" },
-        { title: "Setting", icon: "settings_applications" },
-        { title: "Todo", icon: "mdi-calendar-today" },
-        { title: "More", icon: "more_horiz" }
       ],
       sheet: false,
       tiles: [
