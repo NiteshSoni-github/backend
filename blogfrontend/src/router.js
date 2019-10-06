@@ -44,6 +44,11 @@ export default new Router({
       path: '/readblog',
       name: 'readblog',
       component: () => import('./components/readblog.vue')
+    },
+    {
+      path: '/manageblog',
+      name: 'manageblog',
+      component: () => import('./components/manageblog.vue')
     }
   ]
 })
