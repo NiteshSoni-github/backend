@@ -24,7 +24,7 @@
                   prepend-inner-icon="search"
                   solo-inverted
                 ></v-text-field>
-             
+
                 <v-btn text color="grey" @click="show = !show" class="ml-2 white--text">
                   <span>Filter</span>
                   <v-icon bottom dark>filter_list</v-icon>
@@ -33,14 +33,11 @@
             </v-col>
 
             <v-row>
-              <v-cols>  
-                <v-expand-transition >
+              <v-cols>
+                <v-expand-transition>
                   <div v-show="show">
-                    <v-card-text class="mx-2">
-                     It's come very soon...
-                    </v-card-text>
+                    <v-card-text class="mx-2">It's come very soon...</v-card-text>
                   </div>
-                  
                 </v-expand-transition>
               </v-cols>
             </v-row>
@@ -62,13 +59,48 @@
                           <v-container class="pa-0">
                             <v-row>
                               <v-col>
-                                <span>
-                                  <v-avatar size="32">
-                                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-                                  </v-avatar>
-                                </span>
-                                <br />
-                                <span class="subtitle-2 font-weight-bold">Ram lal Jat</span>
+                                <v-menu
+                                  v-model="menu"
+                                  bottom
+                                  right
+                                  transition="scale-transition"
+                                  origin="top left"
+                                >
+                                  <template v-slot:activator="{ on }">
+                                    <v-chip pill v-on="on">
+                                      <v-avatar left>
+                                        <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                                      </v-avatar>Ram Lal Jat
+                                    </v-chip>
+                                  </template>
+                                  <v-card width="300">
+                                    <v-list dark>
+                                       
+                                      <v-list-item>
+                                        <v-list-item-avatar>
+                                          <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                                        </v-list-item-avatar>
+                                        <v-list-item-content>
+                                          <v-list-item-title>Chaman Pappu</v-list-item-title>
+                                          <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+                                        </v-list-item-content>
+                                        <v-list-item-action>
+                                          <v-btn icon @click="menu = false">
+                                            <v-icon>mdi-close-circle</v-icon>
+                                          </v-btn>
+                                        </v-list-item-action>
+                                      </v-list-item>
+                                    </v-list>
+                                    <v-list>
+                                      <v-list-item @click="() => {}">
+                                        <v-list-item-action>
+                                          <v-icon>mdi-briefcase</v-icon>
+                                        </v-list-item-action>
+                                        <v-list-item-subtitle>john@gmail.com</v-list-item-subtitle>
+                                      </v-list-item>
+                                    </v-list>
+                                  </v-card>
+                                </v-menu>
                               </v-col>
 
                               <v-col>
@@ -144,7 +176,8 @@
 export default {
   data: () => ({
     show: false,
-    rating: 4
+    rating: 4,
+    menu: false
   })
 };
 </script>

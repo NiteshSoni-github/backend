@@ -7,10 +7,10 @@
         </v-app-bar-nav-icon> -->
       
         <v-toolbar-title>
-         
+         <router-link to="/" exact>
         <v-img src="./../../public/logo.png" alt="avatar" max-width="140"
       max-height="50"></v-img>
-        
+        </router-link>
         </v-toolbar-title>
 
         <div class="flex-grow-1"></div>
