@@ -31,7 +31,7 @@
 
                 <p class="text-right">
                   <router-link to="/editblog" exact>
-                  Forgo password?
+                  Forgot password?
                   </router-link> 
                   </p>
                 
@@ -41,7 +41,7 @@
             <v-divider class="mt-4"></v-divider>
 
             <v-card-text class="text-center">
-              Have not account yet
+              Have not account yet?
               <v-btn text small color="primary">Signup</v-btn>
             </v-card-text>
           </v-card>
