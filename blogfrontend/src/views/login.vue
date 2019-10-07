@@ -13,26 +13,36 @@
                 max-width="140"
                 max-height="50"
               ></v-img>
-              <v-card-text class="subtitle text-center mt-n3">
-                Inform someone about something
-              </v-card-text>
             </v-card-title>
             <v-divider></v-divider>
-        
-            <v-card-text class="mt-5">
-                <span>
-                    Login With
-                </span>
 
-                <v-btn  small class="ml-6 mx-1">
-                    Google
-                </v-btn>
-                <v-btn  small class="mx-1">
-                    Facebook
-                </v-btn>
-                <v-btn  small class="mx-1">
-                    Linkedin
-                </v-btn>
+            <v-card-text class="headline text-center">Login</v-card-text>
+            <v-card-text>
+              <v-form class="mx-12">
+                <v-text-field :rules="emailRules" label="E-mail"></v-text-field>
+                <v-text-field
+                  :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                  :rules="[rules.required, rules.min]"
+                  :type="show2 ? 'text' : 'password'"
+                  name="input-10-2"
+                  label="Password"
+                  @click:append="show2 = !show2"
+                ></v-text-field>
+
+                <p class="text-right">
+                  <router-link to="/editblog" exact>
+                  Forgo password?
+                  </router-link> 
+                  </p>
+                
+                <v-btn color="primary">Login</v-btn>
+              </v-form>
+            </v-card-text>
+            <v-divider class="mt-4"></v-divider>
+
+            <v-card-text class="text-center">
+              Have not account yet
+              <v-btn text small color="primary">Signup</v-btn>
             </v-card-text>
           </v-card>
         </v-col>
@@ -45,31 +55,23 @@
 export default {
   data() {
     return {
-      e1: 1,
-      step: 1
-    };
-  },
-  computed: {
-    currentTitle() {
-      switch (this.step) {
-        case 1:
-          return "Sign-up";
-        case 2:
-          return "Create a password";
-        default:
-          return "Account created";
+   
+      email: "",
+      emailRules: [
+        // v => !!v || "E-mail is required",
+        // v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      show1: false,
+      show2: false,
+      show3: false,
+      show4: false,
+      password: "Password",
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters",
+        emailMatch: () => "The email and password you entered don't match"
       }
-    }
-  },
-  methods: {
-    increse: function() {
-      this.step++;
-      this.e1++;
-    },
-    Decrese: function() {
-      this.step--;
-      this.e1--;
-    }
+    };
   }
 };
 </script>
