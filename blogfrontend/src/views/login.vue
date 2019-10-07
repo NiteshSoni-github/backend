@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" md="3" class="d-none d-md-block"></v-col>
         <v-col md="6" cols="12">
-          <v-card class="mx-auto mt-12">
+          <v-card class="mx-auto mt-12" elevation="1" max-width="600">
             <v-card-title>
               <v-img
                 src="./../../public/logo.png"
@@ -13,21 +13,27 @@
                 max-width="140"
                 max-height="50"
               ></v-img>
-
               <v-card-text class="subtitle text-center mt-n3">
                 Inform someone about something
-               
               </v-card-text>
-            <v-divider></v-divider>
-            <div class="flex-grow-1"></div>
-              <v-toolbar-title>Login with</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              
-              <v-icon class="mx-4">edit</v-icon>
-              <v-icon>remove_red_eye</v-icon>
-              <div class="flex-grow-1"></div>
             </v-card-title>
             <v-divider></v-divider>
+        
+            <v-card-text class="mt-5">
+                <span>
+                    Login With
+                </span>
+
+                <v-btn  small class="ml-6 mx-1">
+                    Google
+                </v-btn>
+                <v-btn  small class="mx-1">
+                    Facebook
+                </v-btn>
+                <v-btn  small class="mx-1">
+                    Linkedin
+                </v-btn>
+            </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" md="3" class="d-none d-md-block"></v-col>
