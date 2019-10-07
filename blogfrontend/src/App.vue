@@ -2,30 +2,22 @@
   <v-app>
     <v-content>
       <Navbar />
-       <Login />
-      
-     
-     <router-view ></router-view>
-      
+      <Login />
+      <router-view></router-view>
     </v-content>
-   
   </v-app>
 </template>
 
 <script>
-import Navbar from './components/navbar'
-
-
-
+import Navbar from "./components/navbar";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-  Navbar
-  
+    Navbar
   },
   data: () => ({
     //
-  }),
+  })
 };
 </script>
