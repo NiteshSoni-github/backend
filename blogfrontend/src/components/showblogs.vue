@@ -67,21 +67,21 @@
                                   origin="top left"
                                 >
                                   <template v-slot:activator="{ on }">
-                                    <v-chip pill v-on="on">
+                                    <v-chip pill v-on="on" color="#ECEFF1">
                                       <v-avatar left>
                                         <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
                                       </v-avatar>Ram Lal Jat
                                     </v-chip>
                                   </template>
                                   <v-card width="300">
-                                    <v-list dark>
+                                    <v-list color="#ECEFF1">
                                        
                                       <v-list-item>
                                         <v-list-item-avatar>
                                           <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
                                         </v-list-item-avatar>
                                         <v-list-item-content>
-                                          <v-list-item-title>Chaman Pappu</v-list-item-title>
+                                          <v-list-item-title>RAM LAL JAT</v-list-item-title>
                                           <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
                                         </v-list-item-content>
                                         <v-list-item-action>
