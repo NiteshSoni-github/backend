@@ -50,8 +50,8 @@
                         </v-card-text>
                         <v-card-actions>
                           <div class="flex-grow-1"></div>
+                          <v-btn class="mx-2" @click="dialog1 = false">Close</v-btn>
                           <v-btn color="primary" @click="dialog1 = false">Send</v-btn>
-                          <v-btn color="primary" @click="dialog1 = false">Close</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
