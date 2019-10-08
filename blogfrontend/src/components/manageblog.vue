@@ -9,13 +9,8 @@
           </v-tabs>
 
           <v-tabs-items v-model="tabs">
-
-
-
-
             <v-tab-item>
-              <v-row>
-                
+              <v-row>    
                 <v-col cols="12" class="d-none d-md-block">
                   <v-row>
                     <v-col cols="12">
@@ -64,7 +59,7 @@
                   </v-row>
                 </v-col>
 
-                <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
+                
 
                 <v-dialog v-model="dialog" max-width="390">
                   <v-card>
@@ -243,6 +238,7 @@
 
           <!---------->
         </v-col>
+        <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
       </v-row>
 
       <!---------->
