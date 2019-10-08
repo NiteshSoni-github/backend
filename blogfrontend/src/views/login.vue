@@ -1,10 +1,10 @@
-<template>
-  <div>
-    <v-container fluid>
+<template >
+  <div class="backimage">
+    <v-container fluid >
       <v-row>
         <v-col cols="12" md="3" class="d-none d-md-block"></v-col>
-        <v-col md="6" cols="12">
-          <v-card class="mx-auto mt-12" elevation="1" max-width="600">
+        <v-col md="6" cols="12" >
+          <v-card class="mx-auto mt-12" elevation="1" max-width="600" >
             <v-card-title>
               <v-img
                 src="./../../public/logo.png"
@@ -75,3 +75,11 @@ export default {
   }
 };
 </script>
+<style >
+.backimage{
+  height: 95%;
+  top:0;
+  background: url( 'https://wallpapercave.com/wp/tmx6W6N.png') no-repeat center center;
+background-size: cover;
+}
+</style>
