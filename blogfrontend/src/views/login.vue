@@ -117,16 +117,29 @@
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12">
-                            <v-text-field label="Contact No." value="+91" hint="For Example,9876543210" required></v-text-field>
+                            <v-text-field
+                              label="Contact No."
+                              value="+91"
+                              hint="For Example,9876543210"
+                              required
+                            ></v-text-field>
                           </v-col>
-                          <v-col cols="12" sm="6">
+                          <v-col cols="12" sm="4">
                             <v-select
                               :items="['0-17', '18-29', '30-54', '54+']"
                               label="Age*"
                               required
                             ></v-select>
                           </v-col>
-                          <v-col cols="12" sm="6">
+                          <v-col cols="12" sm="4">
+                            <v-select
+                              :items="['Male','Female']"
+                              label="Gender*"
+                              required
+                            ></v-select>
+                          </v-col>
+
+                          <v-col cols="12" sm="4">
                             <v-autocomplete
                               :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
                               label="Interests"
