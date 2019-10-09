@@ -20,7 +20,7 @@
               <v-row>
                 <v-col class="text-right" cols="12">
                   <v-btn
-                    color="purple darken-3"
+                    color="gery darken-3"
                     fab
                     small
                     @click="isEditing = !isEditing"
@@ -77,7 +77,6 @@
                       v-model="mobile"
                       :disabled="!isEditing"
                       filled
-                      prefix="+91"
                       color="blue-grey lighten-2"
                       label="Mobile"
                     ></v-text-field>
