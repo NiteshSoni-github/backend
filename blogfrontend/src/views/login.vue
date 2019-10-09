@@ -102,10 +102,22 @@
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12">
-                            <v-text-field label="Email*" required></v-text-field>
+                            <v-text-field label="Email*" required hint="For example, xyz@mail.com"></v-text-field>
                           </v-col>
                           <v-col cols="12">
-                            <v-text-field label="Password*" type="password" required></v-text-field>
+                            <v-text-field
+                              label="Password*"
+                              required
+                              hint="For example, Xyz122@#"
+                              :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                              :rules="[rules.required, rules.min]"
+                              :type="show2 ? 'text' : 'password'"
+                              name="input-10-2"
+                              @click:append="show2 = !show2"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-text-field label="Contact No." value="+91" hint="For Example,9876543210" required></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
                             <v-select
