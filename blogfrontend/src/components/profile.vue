@@ -41,13 +41,32 @@
             <v-form>
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="4">
                     <v-text-field
-                      v-model="name"
+                      v-model="first_name"
                       :disabled="!isEditing"
                       filled
                       color="blue-grey lighten-2"
-                      label="Name"
+                      label="First Name"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="mid_name"
+                      :disabled="!isEditing"
+                      filled
+                      color="blue-grey lighten-2"
+                      label="Mid Name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="last_name"
+                      :disabled="!isEditing"
+                      filled
+                      color="blue-grey lighten-2"
+                      label="Mid Name"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="6">
@@ -147,7 +166,9 @@ export default {
       autoUpdate: true,
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
-      name: "Midnight Crew",
+       first_name: "Akshay",
+       mid_name: "Kumar",
+       last_name:"Solanki",
       people: [
         { header: "Group 1" },
         { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
