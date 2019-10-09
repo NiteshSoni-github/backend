@@ -15,7 +15,6 @@
                   :disabled="loading3"
                   class="ml-2 black--text"
                   @click="overlay = !overlay"
-                  
                 >
                   <span>Draft</span>
                   <v-icon right dark>save</v-icon>
@@ -122,9 +121,9 @@
                 row-height="15"
                 
               ></v-textarea>
-             
-              <!-- <v-btn @click="handleSavingContent">Save Content</v-btn>
-              <v-btn @click="setEditorContent">Set Editor Content</v-btn>-->
+<!--              
+              <v-btn @click="handleSavingContent">Save Content</v-btn>
+              <v-btn @click="setEditorContent">Set Editor Content</v-btn> -->
             </v-col>
           </v-row>
         </v-col>
@@ -204,8 +203,7 @@ export default {
 
   methods: {
     // setEditorContent: function() {
-    //   this.content =
-    //     '<p>kusdhkjf</p><p>sdbfjsd</p><p>sskdfks</p><p>sldjfna</p><p>skjgdfksd</p><p>sjgfks</p><p>sdl;fjk</p><p>&lt;script&gt;alert("hello word")&lt;/script&gt;</p><p><br></p><p>kjhkjdg</p><p>dfmglmd</p><p>kdjfhgkjs</p><p>sdfkjhsdf</p><p>sdflkhgksdf</p><p>gkshfgmsd</p><p>fkshfdksd</p><p>fhsdkjfnsdfd</p><p>njsfkln</p><p>flsjdfl<em>fdg</em></p><p><br></p><p><em>sfg</em></p><p><em>sdfgsdfg</em></p><p><em><u>sfgsdfgsdfg sfdg                                                           sdfgsdfgsdfg                                                   afsgsdfgsdf</u></em></p><p><br></p><p><br></p><p>dfsgsdg                                                                                                dsfgsdfgsdfgsfdgsfdgsdfgsdfgsdf                        sdfgsdfgsdf</p><p><br></p><p>sdfgsdf</p><p>sfdg</p><ul data-checked="false"><li>sdf</li><li><span style="background-color: rgb(153, 51, 255);">sdfgsdfg</span></li><li><span style="background-color: rgb(153, 51, 255);">sdf</span></li><li><span style="background-color: rgb(153, 51, 255);">gs</span></li><li><span style="background-color: rgb(153, 51, 255);">dfg</span></li><li><span style="background-color: rgb(153, 51, 255);">sd</span></li></ul><p><br></p><p><span style="background-color: rgb(153, 51, 255);">f,gnksdf</span></p>';
+    //   this.content = ''
     // },
     // handleSavingContent: function() {
     //   // You have the content to save
