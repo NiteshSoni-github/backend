@@ -75,7 +75,6 @@
                                   </template>
                                   <v-card width="300">
                                     <v-list color="#ECEFF1">
-                                       
                                       <v-list-item>
                                         <v-list-item-avatar>
                                           <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>

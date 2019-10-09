@@ -8,6 +8,7 @@
         <v-card-title>
           <span class="headline">User Profile</span>
         </v-card-title>
+        
         <v-card-text>
           <v-container>
             <v-row>

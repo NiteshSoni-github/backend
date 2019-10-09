@@ -32,24 +32,45 @@
                 </v-col>
                 <v-row class="pa-4" align="center" justify="center">
                   <v-col class="text-center">
-                    <h3 class="headline">{{ name }}</h3>
+                    <h3 class="headline">{{ first_name }} {{mid_name}} {{last_name}}</h3>
                     <span class="grey--text text--lighten-1">{{ title }}</span>
                   </v-col>
+                  
                 </v-row>
               </v-row>
             </v-img>
             <v-form>
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="4">
                     <v-text-field
-                      v-model="name"
+                      v-model="first_name"
                       :disabled="!isEditing"
                       filled
                       color="blue-grey lighten-2"
-                      label="Name"
+                      label="First Name"
                     ></v-text-field>
                   </v-col>
+
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="mid_name"
+                      :disabled="!isEditing"
+                      filled
+                      color="blue-grey lighten-2"
+                      label="Mid Name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="last_name"
+                      :disabled="!isEditing"
+                      filled
+                      color="blue-grey lighten-2"
+                      label="Mid Name"
+                    ></v-text-field>
+                  </v-col>
+                  
                   <v-col cols="12" md="6">
                     <v-text-field
                       v-model="title"
@@ -59,6 +80,8 @@
                       label="Title"
                     ></v-text-field>
                   </v-col>
+
+                  
                   <v-col cols="12">
                     <v-autocomplete
                       v-model="friends"
@@ -147,7 +170,10 @@ export default {
       autoUpdate: true,
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
-      name: "Midnight Crew",
+       first_name: "Akshay",
+       mid_name: "Kumar",
+       last_name:"Solanki",
+
       people: [
         { header: "Group 1" },
         { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
@@ -161,7 +187,7 @@ export default {
         { name: "John Smith", group: "Group 2", avatar: srcs[1] },
         { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] }
       ],
-      title: "The summer breeze"
+      title: "The summer breeze",
     };
   },
 
