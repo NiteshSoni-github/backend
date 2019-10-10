@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form method="POST"  enctype="multipart/form-data">
     <v-container fluid>
       <!-- create blog heading-->
       <v-row>
@@ -37,7 +37,7 @@
                   :disabled="loading3"
                   color="success"
                   class="ml-2 white--text"
-                  @click="overlay = !overlay"
+                  @click="publish"
                 >
                   <span>Publish</span>
                   <v-icon right dark>mdi-cloud-upload</v-icon>
@@ -72,6 +72,7 @@
               <p>Category</p>
               <v-card style="height:54px">
                 <v-overflow-btn
+                  v-model='category'
                   color="deep-purple accent-4"
                   class="mb-n12"
                   :items="dropdown_font"
@@ -84,7 +85,12 @@
 
             <v-col cols="3">
               <p>Thumbnail</p>
-              <v-file-input
+              <image-compressor
+                :done="getFiles"
+                :scale="scale"
+                :quality="quality">
+              </image-compressor>
+              <!-- <v-file-input
                 background-color="white"
                 v-model="files"
                 class="mb-n12"
@@ -93,8 +99,9 @@
                 accept="image/png, image/jpeg, image/bmp"
                 placeholder="Pick an image"
                 prepend-icon="mdi-camera"
+                
                 outlined
-              ></v-file-input>
+              ></v-file-input> -->
             </v-col>
           </v-row>
           <v-row>
@@ -112,6 +119,7 @@
               <p>Discription</p>
               
               <v-textarea
+                v-model='discription'
                 color="deep-purple accent-4"
                 background-color="white"
                 label="Enter discription here"
@@ -135,11 +143,16 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
-
+import axios from 'axios'
+import HTTP from '../http'
+import imageCompressor from 'vue-image-compressor'
 export default {
-  components: { VueEditor },
+  components: { VueEditor , imageCompressor },
 
   data: () => ({
+    image:'',
+    scale: 100,
+    quality: 50,
     overlay: false,
     content: null,
     title: "",
@@ -191,7 +204,10 @@ export default {
       "Vehicle",
       "Wine",
       "Wedding",   
-    ]
+    ],
+    discription:'',
+    category:'',
+    
   }),
   watch: {
       overlay (val) {
@@ -202,6 +218,10 @@ export default {
     },
 
   methods: {
+    getFiles(obj){
+      this.image = obj.compressed.file;
+        console.log(obj);
+      },
     // setEditorContent: function() {
     //   this.content = ''
     // },
@@ -209,6 +229,33 @@ export default {
     //   // You have the content to save
     //   console.log(this.content);
     // }
+  async publish(){
+    this.overlay = !this.overlay
+     let data = new FormData()
+         data.append('title', this.title)
+         data.append('category',this.category)
+         data.append('content', this.content)   
+         data.append('discription', this.discription)
+         data.append('token',localStorage.getItem('token'))
+         data.append('image',this.image)
+                let url = 'http://127.0.0.1:3333/publishblog'  
+                let options = {
+                    headers: {
+                    'content-type': 'multipart/form-data'
+                    }
+                }              
+                await HTTP().post(url, data,options).then((data)=>{
+                       if(data.data==1)
+                        {
+                          alert('yup');
+                        }
+                        else
+                        {
+                          alert('nop');
+                        }
+                    
+                })
+  }
   }
 };
 </script>
