@@ -1,6 +1,8 @@
 'use strict'
 const User = use('App/Models/User')
 const { validate } = use('Validator')
+const Hash = use('Hash')
+const Encryption = use('Encryption')
 class UserController {
     async register({request,response})
     {      
@@ -22,7 +24,8 @@ class UserController {
             password,
             mobile,
             age,
-            gender
+            gender,
+            interests
         } = request.all();  
     const user = await User.create({
             f_name,
@@ -32,11 +35,29 @@ class UserController {
             password,
             mobile,
             age,
-            gender
+            gender,
+            interests
     }); 
     await user.save();
     return 1;
-};
+}
+    async login({request,response}){
+      const { email, password } = request.all()     
+        const user = await User.query().where('email',email).first()
+        if(user)
+        { 
+            const passwordVerified  = await Hash.verify(password,user.password )
+            if(passwordVerified)
+            { 
+            const token =  Encryption.encrypt(user)
+         
+             return(token)   
+            }
+        }
+        
+
+       return 0
+    }
 }
 
 module.exports = UserController

@@ -17,18 +17,12 @@
                 ></v-img>
               </v-card-title>
               <v-divider></v-divider>
-              
-               <v-alert
-                  outlined
-                  type="success"
-                >
-                Registred succesfully !!
-                </v-alert>
               <v-card-text class="headline text-center">Login</v-card-text>
               <v-card-text>
                 <v-form class="mx-12">
-                  <v-text-field :rules="emailRules" label="E-mail"></v-text-field>
+                  <v-text-field v-model='login_email' :rules="emailRules" label="E-mail"></v-text-field>
                   <v-text-field
+                    v-model="login_password"
                     :append-icon="show2 ? 'visibility' : 'visibility_off'"
                     :rules="[rules.required, rules.min]"
                     :type="show2 ? 'text' : 'password'"
@@ -64,7 +58,7 @@
                     </v-dialog>
                   </p>
 
-                  <v-btn color="primary">Login</v-btn>
+                  <v-btn color="primary" @click='login'>Login</v-btn>
                 </v-form>
               </v-card-text>
               <v-divider class="mt-4"></v-divider>
@@ -154,7 +148,7 @@
 
                           <v-col cols="12" sm="4">
                             <v-autocomplete
-                              v-model='interest'
+                              v-model='interests'
                               :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
                               label="Interests"
                               multiple
@@ -187,11 +181,14 @@
 <script>
 import axios from 'axios'
 import HTTP from '../http'
+import router from '../router'
 export default {
   data() {
     return {
       dialog: false,
       dialog1: false,
+      login_email:'',
+      login_password:'',
       password:'',
       email: "",
       emailRules: [
@@ -213,7 +210,7 @@ export default {
       mobile:'',
       age:'',
       gender:'',
-      interest:'',
+      interests:'',
       d:'',
     };
   },
@@ -228,21 +225,46 @@ export default {
          data.append('mobile', this.mobile)
          data.append('age', this.age)
          data.append('gender', this.gender)
-         
+         data.append('interests', this.interests)         
                 let url = 'http://127.0.0.1:3333/register'                
                 await HTTP().post(url, data).then((data)=>{
                        if(data.data==1)
-                        this.dialog=false;
+                        {
+                          this.dialog=false;
+                          this.login_email=this.email;
+                          this.login_password=this.password;
+                        }
                         else
+                        {
+                          alert("Email Id or Phone Number already register");
                         this.dialog=true;
+                        }
                     
                 })
         
+      },
+      async login(){
+        let data = new FormData()
+        data.append('email', this.login_email)
+        data.append('password', this.login_password)
+        let url = 'http://127.0.0.1:3333/login'                
+                await HTTP().post(url, data).then((data)=>{
+                       if(data.data!=0)
+                        {
+                          alert('login success');
+                          this.$router.push({name:'showblog'})
+                        }
+                        else
+                        {
+                          alert("Email Id or password does not match");
+                        }
+                    
+                })
       }
     },
 };
 </script>
-<style >
+<style>
 .backimage {
   height: 95%;
   top: 0;
