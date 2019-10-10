@@ -252,6 +252,7 @@ export default {
                        if(data.data!=0)
                         {
                           alert('login success');
+                          localStorage.setItem('token',data.data)
                           this.$router.push({name:'showblog'})
                         }
                         else
