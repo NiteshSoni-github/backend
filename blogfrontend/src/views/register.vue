@@ -13,13 +13,14 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Legal first name*" required></v-text-field>
+                <v-text-field v-model='f_name' label="first name*" required></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+                <v-text-field v-model='m_name' label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-text-field
+                  v-model='l_name'
                   label="Legal last name*"
                   hint="example of persistent helper text"
                   persistent-hint
@@ -27,13 +28,14 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Email*" required></v-text-field>
+                <v-text-field v-model='email' label="Email*" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Password*" type="password" required></v-text-field>
+                <v-text-field v-model='password' label="Password*" type="password" required></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
+                  v-model='age'
                   :items="['0-17', '18-29', '30-54', '54+']"
                   label="Age*"
                   required
@@ -41,6 +43,7 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-autocomplete
+                  v-model='interest'
                   :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
                   label="Interests"
                   multiple
@@ -53,7 +56,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="signup">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -64,6 +67,22 @@
   export default {
     data: () => ({
       dialog: false,
+      f_name:'',
+      m_name:'',
+      l_name:'',
+      email:'',
+      password:'',
+      mobile:'',
+      age:'',
+      gender:'',
+      interest:'',
     }),
+    methods: {
+      signup(){
+        alert('hello world');
+        this.dialog=false;
+        
+      }
+    },
   }
 </script>

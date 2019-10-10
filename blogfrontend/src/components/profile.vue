@@ -20,7 +20,7 @@
               <v-row>
                 <v-col class="text-right" cols="12">
                   <v-btn
-                    color="gery darken-3"
+                    color="primary"
                     fab
                     small
                     @click="isEditing = !isEditing"
@@ -118,6 +118,8 @@
                     >
                       <template v-slot:selection="data">
                         <v-chip
+                          color="#E1F5FE"
+                         
                           v-bind="data.attrs"
                           :input-value="data.selected"
                           close
