@@ -44,7 +44,11 @@
      
 
         <div class="flex-grow-1"></div>
-
+        <span class="navbuttons">
+         <router-link to="/login" exact class="loginsignup">
+ <v-btn outlined color="indigo">Login/ Signup</v-btn>
+         </router-link>
+        </span>
         <!-- profile pic on top right side with popup menu-->
         <v-menu
           offset-y
