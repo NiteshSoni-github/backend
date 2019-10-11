@@ -12,6 +12,7 @@
     "core-js": "^2.6.5",
     "quill-image-drop-module": "^1.0.3",
     "quill-image-resize-module": "^3.0.0",
+    "quill-image-resize-module-withfix": "^4.0.1",
     "vue": "^2.6.10",
     "vue-image-compressor": "^1.0.3",
     "vue-router": "^3.0.3",

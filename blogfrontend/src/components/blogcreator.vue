@@ -1,5 +1,5 @@
 <template>
-  <v-form method="POST"  enctype="multipart/form-data">
+  <v-form method="POST" enctype="multipart/form-data">
     <v-container fluid>
       <!-- create blog heading-->
       <v-row>
@@ -25,8 +25,7 @@
                   :disabled="loading3"
                   color="info"
                   class="ml-2 white--text"
-                  
-                   @click="overlay = !overlay"
+                  @click="overlay = !overlay"
                 >
                   <span>Preview</span>
                   <v-icon right dark>remove_red_eye</v-icon>
@@ -45,8 +44,8 @@
               </v-card-actions>
             </v-col>
             <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
+              <v-progress-circular indeterminate size="64"></v-progress-circular>
+            </v-overlay>
           </v-row>
 
           <v-divider></v-divider>
@@ -72,7 +71,7 @@
               <p>Category</p>
               <v-card style="height:54px">
                 <v-overflow-btn
-                  v-model='category'
+                  v-model="category"
                   color="deep-purple accent-4"
                   class="mb-n12"
                   :items="dropdown_font"
@@ -85,12 +84,7 @@
 
             <v-col cols="3">
               <p>Thumbnail</p>
-              <image-compressor
-                :done="getFiles"
-                :scale="scale"
-                :quality="quality"
-                >
-              </image-compressor>
+              <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor>
               <!-- <v-file-input
                 background-color="white"
                 v-model="files"
@@ -102,7 +96,7 @@
                 prepend-icon="mdi-camera"
                 
                 outlined
-              ></v-file-input> -->
+              ></v-file-input>-->
             </v-col>
           </v-row>
           <v-row>
@@ -112,15 +106,17 @@
                 <vue-editor
                   id="blog"
                   v-model="content"
+                  :editorOptions="editorSettings"
                   placeholder="Write your valuable content..."
                 ></vue-editor>
               </v-card>
+
               <br />
-              
+
               <p>Discription</p>
-              
+
               <v-textarea
-                v-model='discription'
+                v-model="discription"
                 color="deep-purple accent-4"
                 background-color="white"
                 label="Enter discription here"
@@ -128,11 +124,10 @@
                 outlined
                 rows="6"
                 row-height="15"
-                
               ></v-textarea>
-<!--              
+                           
               <v-btn @click="handleSavingContent">Save Content</v-btn>
-              <v-btn @click="setEditorContent">Set Editor Content</v-btn> -->
+              <v-btn @click="setEditorContent">Set Editor Content</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -143,122 +138,138 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
-import axios from 'axios'
-import HTTP from '../http'
-import imageCompressor from 'vue-image-compressor'
-import router from '../router'
-export default {
-  components: { VueEditor , imageCompressor },
+import { VueEditor, Quill } from "vue2-editor";
+import { ImageDrop } from "quill-image-drop-module";
+import ImageResize from "quill-image-resize-module";
 
-  data: () => ({
-    image:'',
-    scale: 100,
-    quality: 50,
-    overlay: false,
-    content: null,
-    title: "",
-    dropdown_font: [
-      "Academic",
-      "Animals",
-      "Arts",
-      "Beauty",
-      "Career",
-      "Celebrity Gossip",
-      "Design",
-      "DIY",
-      "Economic",
-      "Education",
-      "Entertainment",
-      "Environmental",
-      "Fashion",
-      "Finance",
-      "Fitness",
-      "Food",
-      "Gaming",
-      "Health",
-      "History",
-      "Law",
-      "Lifestyle",
-      "Marketing",
-      "Medical",
-      "Movie",
-      "Money",
-      "Music",
-      "Nature",
-      "Parenting",
-      "Personal",
-      "Pet",
-      "Political",
-      "Photography",
-      "Practical",
-      "Programming",
-      "Real State",
-      "SEO",
-      "Shopping",
-      "Social",
-      "Social Media",
-      "Spetiraul",
-      "Sports",
-      "Technology",
-      "Travel",
-      "University",
-      "Vehicle",
-      "Wine",
-      "Wedding",   
-    ],
-    discription:'',
-    category:'',
-    
-  }),
-  watch: {
-      overlay (val) {
-        val && setTimeout(() => {
-          this.overlay = false
-        }, 3000)
+Quill.register("modules/imageDrop", ImageDrop);
+Quill.register("modules/imageResize", ImageResize);
+
+import axios from "axios";
+import HTTP from "../http";
+import imageCompressor from "vue-image-compressor";
+import router from "../router";
+
+export default {
+  components: {
+    VueEditor,
+    imageCompressor
+  },
+  data() {
+    return {
+      content: "<h1>first class</h1>",
+      editorSettings: {
+        modules: {
+          imageDrop: true,
+          imageResize: {}
+        }
       },
-    },
+      image: "",
+      scale: 100,
+      quality: 50,
+      overlay: false,
+      
+      title: "",
+      dropdown_font: [
+        "Academic",
+        "Animals",
+        "Arts",
+        "Beauty",
+        "Career",
+        "Celebrity Gossip",
+        "Design",
+        "DIY",
+        "Economic",
+        "Education",
+        "Entertainment",
+        "Environmental",
+        "Fashion",
+        "Finance",
+        "Fitness",
+        "Food",
+        "Gaming",
+        "Health",
+        "History",
+        "Law",
+        "Lifestyle",
+        "Marketing",
+        "Medical",
+        "Movie",
+        "Money",
+        "Music",
+        "Nature",
+        "Parenting",
+        "Personal",
+        "Pet",
+        "Political",
+        "Photography",
+        "Practical",
+        "Programming",
+        "Real State",
+        "SEO",
+        "Shopping",
+        "Social",
+        "Social Media",
+        "Spetiraul",
+        "Sports",
+        "Technology",
+        "Travel",
+        "University",
+        "Vehicle",
+        "Wine",
+        "Wedding"
+      ],
+      discription: "",
+      category: ""
+    };
+  },
+  watch: {
+    overlay(val) {
+      val &&
+        setTimeout(() => {
+          this.overlay = false;
+        }, 3000);
+    }
+  },
 
   methods: {
-    getFiles(obj){
+    getFiles(obj) {
       this.image = obj.original.file;
-        console.log(obj);
-      },
-    // setEditorContent: function() {
-    //   this.content = ''
-    // },
-    // handleSavingContent: function() {
-    //   // You have the content to save
-    //   console.log(this.content);
-    // }
-  async publish(){
-    this.overlay = !this.overlay
-     let data = new FormData()
-         data.append('title', this.title)
-         data.append('category',this.category)
-         data.append('content', this.content)   
-         data.append('discription', this.discription)
-         data.append('token',localStorage.getItem('token'))
-         data.append('image',this.image)
-                let url = 'http://127.0.0.1:3333/publishblog'  
-                let options = {
-                    headers: {
-                    'content-type': 'multipart/form-data'
-                    }
-                }              
-                await HTTP().post(url, data,options).then((data)=>{
-                       if(data.data==1)
-                        {
-                          alert('Blog uploaded successfully');
-                           this.$router.push({name:'showblog'})
-                        }
-                        else
-                        {
-                          alert('Error while uploading blog');
-                        }
-                    
-                })
-  },
+      console.log(obj);
+    },
+    setEditorContent: function() {
+      this.content = '<p>dfgcncdc</p>'
+    },
+    handleSavingContent: function() {
+      // You have the content to save
+      console.log(this.content);
+    },
+    async publish() {
+      this.overlay = !this.overlay;
+      let data = new FormData();
+      data.append("title", this.title);
+      data.append("category", this.category);
+      data.append("content", this.content);
+      data.append("discription", this.discription);
+      data.append("token", localStorage.getItem("token"));
+      data.append("image", this.image);
+      let url = "http://127.0.0.1:3333/publishblog";
+      let options = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      await HTTP()
+        .post(url, data, options)
+        .then(data => {
+          if (data.data == 1) {
+            alert("Blog uploaded successfully");
+            this.$router.push({ name: "showblog" });
+          } else {
+            alert("Error while uploading blog");
+          }
+        });
+    }
   }
 };
 </script>
