@@ -80,7 +80,7 @@
                                           <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
                                         </v-list-item-avatar>
                                         <v-list-item-content>
-                                          <v-list-item-title>RAM LAL JAT</v-list-item-title>
+                                          <v-list-item-title>{{data.authorName}}</v-list-item-title>
                                           <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
                                         </v-list-item-content>
                                         <v-list-item-action>
@@ -139,11 +139,11 @@
                         </v-subheader>
                       </v-col>
                     </v-row>
-                    <router-link to="/readblog" exact>
+                     <a @click='goToPost(data.id)'>
                       <v-card-title
                         class="align-end title fill-height"
                       >{{data.title}}</v-card-title>
-                    </router-link>
+                    </a>
                     <v-card-text class="mt-n5 mb-n2">
                       <span>
                         {{data.discription}}
@@ -175,6 +175,7 @@
 import axios from 'axios'
 import HTTP from '../http'
 import router from '../router'
+import store from "../store"
 export default {
   data: () => ({
     data:[],
@@ -201,12 +202,15 @@ export default {
           })
       .then( (data) => {
         if(data.data){
-        this.data = [...data.data];
-        console.log(data.data)
+        store.state.blogData =this.data= [...data.data]; 
          }
          } )
       .catch(error => console.log(error))    
-         }
-  },
+         },
+ 
+  goToPost(id){
+      this.$router.push({name: 'readblog', params: {id:id }})
+    }
+     },
 };
 </script>

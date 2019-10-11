@@ -9,6 +9,7 @@ export default new Vuex.Store({
     accessToken: null,
     login : true,
     logout: false,
+    blogData:[],
   },
   mutations: {
     login_logout(state){
