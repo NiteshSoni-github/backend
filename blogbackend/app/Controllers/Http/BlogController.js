@@ -36,7 +36,18 @@ class BlogController {
     }); 
     await blog.save()
     return 1;
-    }
+    };
+    // get all blog data for show blog page
+
+  async getAllBlogData({request,response}){
+    let token = request.input('token');
+    const blog = await Blog.all();
+    var temp = blog.toJSON()
+    console.log(temp);
+    return response.send(temp);
+   
+
+  }
 }
 
 module.exports = BlogController
