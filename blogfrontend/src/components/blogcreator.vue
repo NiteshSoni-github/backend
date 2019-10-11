@@ -89,7 +89,8 @@
               <image-compressor
                 :done="getFiles"
                 :scale="scale"
-                :quality="quality">
+                :quality="quality"
+                >
               </image-compressor>
               <!-- <v-file-input
                 background-color="white"
@@ -220,7 +221,7 @@ export default {
 
   methods: {
     getFiles(obj){
-      this.image = obj.compressed.file;
+      this.image = obj.original.file;
         console.log(obj);
       },
     // setEditorContent: function() {
@@ -257,7 +258,7 @@ export default {
                         }
                     
                 })
-  }
+  },
   }
 };
 </script>
