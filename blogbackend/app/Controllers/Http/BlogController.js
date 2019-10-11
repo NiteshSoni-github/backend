@@ -13,17 +13,14 @@ class BlogController {
             discription,
             token
         } = request.all();
-        console.log('fg');
         const imag = request.file('image', {
             types: ['image'],
-            size: '2mb'
+            size: '6mb'
           })
-          console.log('fg');
           const image = new Date().getTime()+'.'+imag.subtype
           await imag.move(Helpers.publicPath('uploads/blogPicture'), {
             name: image,
           })
-          console.log('fg');
         const decrypted = Encryption.decrypt(token)
         const authorName = decrypted.f_name
          const authorId = decrypted.id
