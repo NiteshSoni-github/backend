@@ -41,9 +41,10 @@ const router= new Router({
       component: () => import('./components/blogcreator.vue')
     },
     {
-      path: '/readblog',
+      path: '/readblog/:id',
       name: 'readblog',
-      component: () => import('./components/readblog.vue')
+      component: () => import('./components/readblog.vue'),
+      props: true
     },
     {
       path: '/manageblog',

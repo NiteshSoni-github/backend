@@ -15,7 +15,7 @@
                         <v-img
                           class="white--text"
                           height="200px"
-                          src="https://cdn.vuetifyjs.com/images/cards/house.jpg"
+                          :src="imageSrc + data.image"
                         >
                         
                           <v-card-actions>
@@ -39,7 +39,7 @@
                                   </v-avatar>
                                 </span>
                                 <br />
-                                <span class="subtitle-2 font-weight-bold">Ram lal Jat</span>
+                                <span class="subtitle-2 font-weight-bold">{{data.authorName}}</span>
                               </v-col>
 
                               <v-col>
@@ -51,7 +51,7 @@
                               <v-col>
                                 <span>Publish On</span>
                                 <br />
-                                <span class="subtitle-2 font-weight-bold">12/02/2019</span>
+                                <span class="subtitle-2 font-weight-bold">{{data.created_at}}</span>
                               </v-col>
 
                               <v-col>
@@ -87,7 +87,7 @@
                     </v-row>
                     <v-card-title class="fill-height mt-n5">
                       <v-card-text class="headline text-center ">
-                        Top 10 Australian beaches Top 10 Australian beachesTop 10 Australian beaches
+                       {{data.title}}
                         <br />
                         <v-btn
                           text
@@ -98,11 +98,7 @@
                         <v-expand-transition class="d-flex justify-start" >
                           <div v-show="show">
                             <v-card-text>
-                              I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-                              I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-                              I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-                              I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-                              I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+                              {{data.discription}}
                             </v-card-text>
                           </div>
                         </v-expand-transition>
@@ -118,7 +114,8 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-col cols="12"></v-col>
+            <v-col cols="12">
+            </v-col>
           </v-row>
         </v-col>
         <v-col cols="2" class="d-none d-md-block"></v-col>
@@ -128,20 +125,42 @@
 </template>
 <script>
 import { VueEditor } from "vue2-editor";
-
+import router from '../router'
+import store from "../store"
+import axios from 'axios'
+import HTTP from '../http'
 export default {
+  props: ['id'],
   components: { VueEditor },
 
   data: () => ({
+   data:[],
     show: false,
-    content: null
+    content: null,
+    imageSrc : 'http://127.0.0.1:3333/uploads/blogPicture/'
   }),
-
+  beforeMount() {
+        this.showData();
+    },
   methods: {
     setEditorContent: function() {
-      this.content =
-        '<p><span style="color: rgb(0, 0, 0);">NEW DELHI: Telecom regulator Trai will take additional time to finalise its views on Over-The-Top (OTT) norms and issues around lawful interception and security are expected to be the key focus, an official said.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">The Telecom Regulatory Authority of India (Trai) deliberations on the issue may take at least one more month to conclude, as it is looking at international practices and regulations around OTTs, particularly on security-related aspects.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">OTT services refer to applications and services that are accessible over the internet and ride on an operators network. Skype, Viber, WhatsApp and Hike are some of the popular and widely-used OTT services.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">A senior Trai official said that the regulator wants to take a "practical approach" to the OTT issue.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">Moreover, OTT usage is also benefiting telcos given the spike in data consumption and traffic, and hence any argument about such services merely riding free on telecom netwo&nbsp;..</span></p><p><br></p><p>Read more at:</p><p><a href="https://economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" rel="noopener noreferrer" target="_blank" style="color: rgb(2, 77, 153);">//economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst</a></p><p><br></p><p><br></p><p>Read more at:</p><p><a href="https://economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" rel="noopener noreferrer" target="_blank" style="color: rgb(2, 77, 153);">//economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst</a></p><p><br></p><p><span style="color: rgb(0, 0, 0);">NEW DELHI: Telecom regulator Trai will take additional time to finalise its views on Over-The-Top (OTT) norms and issues around lawful interception and security are expected to be the key focus, an official said.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">The Telecom Regulatory Authority of Indias (Trai) deliberations on the issue may take at least one more month to conclude, as it is looking at international practices and regulations around OTTs, particularly on security-related aspects.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">OTT services refer to applications and services that are accessible over the internet and ride on an operators network. Skype, Viber, WhatsApp and Hike are some of the popular and widely-used OTT services.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">A senior Trai official said that the regulator wants to take a "practical approach" to the OTT issue.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">Moreover, OTT usage is also benefiting telcos given the spike in data consumption and traffic, and hence any argument about such services merely riding free on telecom netwo&nbsp;..</span></p><p><br></p><p>Read more at:</p><p><a href="https://economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" rel="noopener noreferrer" target="_blank" style="color: rgb(2, 77, 153);">//economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst</a></p><p><br></p><p><br></p>';
+      // this.content =
+      //   '<p><span style="color: rgb(0, 0, 0);">NEW DELHI: Telecom regulator Trai will take additional time to finalise its views on Over-The-Top (OTT) norms and issues around lawful interception and security are expected to be the key focus, an official said.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">The Telecom Regulatory Authority of India (Trai) deliberations on the issue may take at least one more month to conclude, as it is looking at international practices and regulations around OTTs, particularly on security-related aspects.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">OTT services refer to applications and services that are accessible over the internet and ride on an operators network. Skype, Viber, WhatsApp and Hike are some of the popular and widely-used OTT services.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">A senior Trai official said that the regulator wants to take a "practical approach" to the OTT issue.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">Moreover, OTT usage is also benefiting telcos given the spike in data consumption and traffic, and hence any argument about such services merely riding free on telecom netwo&nbsp;..</span></p><p><br></p><p>Read more at:</p><p><a href="https://economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" rel="noopener noreferrer" target="_blank" style="color: rgb(2, 77, 153);">//economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst</a></p><p><br></p><p><br></p><p>Read more at:</p><p><a href="https://economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" rel="noopener noreferrer" target="_blank" style="color: rgb(2, 77, 153);">//economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst</a></p><p><br></p><p><span style="color: rgb(0, 0, 0);">NEW DELHI: Telecom regulator Trai will take additional time to finalise its views on Over-The-Top (OTT) norms and issues around lawful interception and security are expected to be the key focus, an official said.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">The Telecom Regulatory Authority of Indias (Trai) deliberations on the issue may take at least one more month to conclude, as it is looking at international practices and regulations around OTTs, particularly on security-related aspects.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">OTT services refer to applications and services that are accessible over the internet and ride on an operators network. Skype, Viber, WhatsApp and Hike are some of the popular and widely-used OTT services.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">A senior Trai official said that the regulator wants to take a "practical approach" to the OTT issue.</span></p><p><br></p><p><span style="color: rgb(0, 0, 0);">Moreover, OTT usage is also benefiting telcos given the spike in data consumption and traffic, and hence any argument about such services merely riding free on telecom netwo&nbsp;..</span></p><p><br></p><p>Read more at:</p><p><a href="https://economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst" rel="noopener noreferrer" target="_blank" style="color: rgb(2, 77, 153);">//economictimes.indiatimes.com/articleshow/71407266.cms?utm_source=contentofinterest&amp;utm_medium=text&amp;utm_campaign=cppst</a></p><p><br></p><p><br></p>';
     },
+   async showData(){
+        let id  = this.id;
+          await axios
+             .get('http://127.0.0.1:3333/getParticularBlogData',{
+            params: {
+              id
+            }
+          })         
+         .then((data)=>{
+                this.data = data.data
+                this.content = this.data.content;
+                console.log(this.data)
+               }) 
+    }
    
   }
 

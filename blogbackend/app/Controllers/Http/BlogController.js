@@ -43,10 +43,12 @@ class BlogController {
     let token = request.input('token');
     const blog = await Blog.all();
     var temp = blog.toJSON()
-    console.log(temp);
-    return response.send(temp);
-   
-
+    return response.send(temp);  
+  }
+  async getParticularBlogData({request,response}){
+    console.log(request.input('id'));
+    let post = await Blog.query().where('id',request.input('id')).first()
+    return response.send(post.toJSON())
   }
 }
 
