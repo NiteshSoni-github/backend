@@ -88,7 +88,8 @@
               <image-compressor
                 :done="getFiles"
                 :scale="scale"
-                :quality="quality">
+                :quality="quality"
+                >
               </image-compressor>
               <!-- <v-file-input
                 background-color="white"
@@ -146,6 +147,7 @@ import { VueEditor } from "vue2-editor";
 import axios from 'axios'
 import HTTP from '../http'
 import imageCompressor from 'vue-image-compressor'
+import router from '../router'
 export default {
   components: { VueEditor , imageCompressor },
 
@@ -219,7 +221,7 @@ export default {
 
   methods: {
     getFiles(obj){
-      this.image = obj.compressed.file;
+      this.image = obj.original.file;
         console.log(obj);
       },
     // setEditorContent: function() {
@@ -247,15 +249,16 @@ export default {
                 await HTTP().post(url, data,options).then((data)=>{
                        if(data.data==1)
                         {
-                          alert('yup');
+                          alert('Blog uploaded successfully');
+                           this.$router.push({name:'showblog'})
                         }
                         else
                         {
-                          alert('nop');
+                          alert('Error while uploading blog');
                         }
                     
                 })
-  }
+  },
   }
 };
 </script>

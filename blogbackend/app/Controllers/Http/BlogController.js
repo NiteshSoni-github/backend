@@ -1,9 +1,9 @@
 'use strict'
 const Blog = use('App/Models/Blog')
-//const Hash = use('Hash')
+const Hash = use('Hash')
 const Encryption = use('Encryption')
 const Helpers = use('Helpers')
-//const fs = require('fs');
+const fs = require('fs');
 class BlogController {
     async publishblog({request,response}){
         let {
@@ -13,14 +13,12 @@ class BlogController {
             discription,
             token
         } = request.all();
-        console.log('fg');
-        const image = request.file('image', {
+        const imag = request.file('image', {
             types: ['image'],
-            size: '2mb'
+            size: '6mb'
           })
-          
-          const image = new Date().getTime()+'.'+image.subtype
-          await profilePic.move(Helpers.publicPath('uploads/blogPicture'), {
+          const image = new Date().getTime()+'.'+imag.subtype
+          await imag.move(Helpers.publicPath('uploads/blogPicture'), {
             name: image,
           })
         const decrypted = Encryption.decrypt(token)
