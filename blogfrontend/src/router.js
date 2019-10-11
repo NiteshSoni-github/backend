@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
   store.dispatch('fetchAccessToken');
   if (to.fullPath === '/login') {
     if (store.state.accessToken) {
-      next('/');
+      next('/readblog');
     }
   }
   next();

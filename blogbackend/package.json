@@ -1,7 +1,7 @@
 {
   "name": "adonis-fullstack-app",
-  "version": "4.1.0",
-  "adonis-version": "4.1.0",
+  "version": "5.0.8",
+  "adonis-version": "5.0.8",
   "description": "The fullstack application boilerplate for Adonisjs",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/ace": "^6.1.7",
     "@adonisjs/auth": "^3.0.7",
     "@adonisjs/bodyparser": "^2.0.5",
     "@adonisjs/cors": "^1.0.7",
