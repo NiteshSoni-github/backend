@@ -139,6 +139,8 @@ import { VueEditor } from "vue2-editor";
 
 export default {
   components: { VueEditor },
+  
+  
 
   data: () => ({
     overlay: false,
