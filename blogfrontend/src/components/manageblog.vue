@@ -252,7 +252,7 @@
 export default {
   data: () => ({
     tabs: null,
-    items: ["ss","Draft", "My Favourit",  "Published"],
+    items: ["ss","Draft", "My Favourite",  "Published"],
 
     singleSelect: false,
     selected: [],

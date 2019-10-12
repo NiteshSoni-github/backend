@@ -17,3 +17,8 @@
 const Route = use('Route')
 
 Route.on('/').render('welcome')
+Route.post('/register', 'UserController.register')
+Route.post('/login', 'UserController.login')
+Route.post('/publishblog', 'BlogController.publishblog')
+Route.get('/getAllBlogData', 'BlogController.getAllBlogData')
+Route.get('/getParticularBlogData', 'BlogController.getParticularBlogData')

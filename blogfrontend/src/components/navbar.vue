@@ -44,7 +44,11 @@
      
 
         <div class="flex-grow-1"></div>
-
+        <span class="navbuttons">
+         <router-link to="/login" exact class="loginsignup">
+ <v-btn outlined color="indigo">Login/ Signup</v-btn>
+         </router-link>
+        </span>
         <!-- profile pic on top right side with popup menu-->
         <v-menu
           offset-y
@@ -77,7 +81,7 @@
 
             <v-card-actions>
               <div class="flex-grow-1"></div>
-              <v-btn color="primary" text @click="menumobile = false">
+              <v-btn color="primary" text @click="signout">
                 <v-icon left>mdi-logout</v-icon>Sign out
               </v-btn>
               <div class="flex-grow-1"></div>
@@ -229,7 +233,16 @@ export default {
     avatarSize() {
       return `36px`;
     }
-  }
+  },
+  created() {
+          store.dispatch('login_logout')  
+    }, 
+  methods: {
+    signout(){
+      this.menumobile = false
+      localStorage.removeItem("token");
+    }
+  },
 };
 </script>
 <style >

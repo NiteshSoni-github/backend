@@ -1,5 +1,5 @@
-<template>
-  <v-form>
+s<template>
+  <v-form method="POST" enctype="multipart/form-data">
     <v-container fluid>
       <!-- create blog heading-->
       <v-row>
@@ -15,7 +15,6 @@
                   :disabled="loading3"
                   class="ml-2 black--text"
                   @click="overlay = !overlay"
-                  
                 >
                   <span>Draft</span>
                   <v-icon right dark>save</v-icon>
@@ -26,8 +25,7 @@
                   :disabled="loading3"
                   color="info"
                   class="ml-2 white--text"
-                  
-                   @click="overlay = !overlay"
+                  @click="overlay = !overlay"
                 >
                   <span>Preview</span>
                   <v-icon right dark>remove_red_eye</v-icon>
@@ -38,7 +36,7 @@
                   :disabled="loading3"
                   color="success"
                   class="ml-2 white--text"
-                  @click="overlay = !overlay"
+                  @click="publish"
                 >
                   <span>Publish</span>
                   <v-icon right dark>mdi-cloud-upload</v-icon>
@@ -46,8 +44,8 @@
               </v-card-actions>
             </v-col>
             <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
+              <v-progress-circular indeterminate size="64"></v-progress-circular>
+            </v-overlay>
           </v-row>
 
           <v-divider></v-divider>
@@ -73,6 +71,7 @@
               <p>Category</p>
               <v-card style="height:54px">
                 <v-overflow-btn
+                  v-model="category"
                   color="deep-purple accent-4"
                   class="mb-n12"
                   :items="dropdown_font"
@@ -85,7 +84,8 @@
 
             <v-col cols="3">
               <p>Thumbnail</p>
-              <v-file-input
+              <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor>
+              <!-- <v-file-input
                 background-color="white"
                 v-model="files"
                 class="mb-n12"
@@ -94,25 +94,24 @@
                 accept="image/png, image/jpeg, image/bmp"
                 placeholder="Pick an image"
                 prepend-icon="mdi-camera"
+                
                 outlined
-              ></v-file-input>
+              ></v-file-input>-->
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
               <p>Blog</p>
               <v-card>
-                <vue-editor
-                  id="blog"
-                  v-model="content"
-                  placeholder="Write your valuable content..."
-                ></vue-editor>
+                <vue-editor id="editor" :editorOptions="editorSettings" v-model="content"></vue-editor>
               </v-card>
+
               <br />
-              
+
               <p>Discription</p>
-              
+
               <v-textarea
+                v-model="discription"
                 color="deep-purple accent-4"
                 background-color="white"
                 label="Enter discription here"
@@ -120,11 +119,10 @@
                 outlined
                 rows="6"
                 row-height="15"
-                
               ></v-textarea>
-             
-              <!-- <v-btn @click="handleSavingContent">Save Content</v-btn>
-              <v-btn @click="setEditorContent">Set Editor Content</v-btn>-->
+
+              <v-btn @click="handleSavingContent">Save Content</v-btn>
+              <v-btn @click="setEditorContent">Set Editor Content</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -135,84 +133,138 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+import { VueEditor, Quill } from "vue2-editor";
+import { ImageDrop } from "quill-image-drop-module";
+import ImageResize from "quill-image-resize-module";
+
+Quill.register("modules/imageDrop", ImageDrop);
+Quill.register("modules/imageResize", ImageResize);
+
+import axios from "axios";
+import HTTP from "../http";
+import imageCompressor from "vue-image-compressor";
+import router from "../router";
 
 export default {
-  components: { VueEditor },
-  
-  
-
-  data: () => ({
-    overlay: false,
-    content: null,
-    title: "",
-    dropdown_font: [
-      "Academic",
-      "Animals",
-      "Arts",
-      "Beauty",
-      "Career",
-      "Celebrity Gossip",
-      "Design",
-      "DIY",
-      "Economic",
-      "Education",
-      "Entertainment",
-      "Environmental",
-      "Fashion",
-      "Finance",
-      "Fitness",
-      "Food",
-      "Gaming",
-      "Health",
-      "History",
-      "Law",
-      "Lifestyle",
-      "Marketing",
-      "Medical",
-      "Movie",
-      "Money",
-      "Music",
-      "Nature",
-      "Parenting",
-      "Personal",
-      "Pet",
-      "Political",
-      "Photography",
-      "Practical",
-      "Programming",
-      "Real State",
-      "SEO",
-      "Shopping",
-      "Social",
-      "Social Media",
-      "Spetiraul",
-      "Sports",
-      "Technology",
-      "Travel",
-      "University",
-      "Vehicle",
-      "Wine",
-      "Wedding",   
-    ]
-  }),
-  watch: {
-      overlay (val) {
-        val && setTimeout(() => {
-          this.overlay = false
-        }, 3000)
+  components: {
+    VueEditor,
+    imageCompressor
+  },
+  data() {
+    return {
+      content: "<h1>Initial Content</h1>",
+      editorSettings: {
+        modules: {
+          imageDrop: true,
+          imageResize: {}
+        }
       },
-    },
+      image: "",
+      scale: 100,
+      quality: 50,
+      overlay: false,
+      title: "",
+      dropdown_font: [
+        "Academic",
+        "Animals",
+        "Arts",
+        "Beauty",
+        "Career",
+        "Celebrity Gossip",
+        "Design",
+        "DIY",
+        "Economic",
+        "Education",
+        "Entertainment",
+        "Environmental",
+        "Fashion",
+        "Finance",
+        "Fitness",
+        "Food",
+        "Gaming",
+        "Health",
+        "History",
+        "Law",
+        "Lifestyle",
+        "Marketing",
+        "Medical",
+        "Movie",
+        "Money",
+        "Music",
+        "Nature",
+        "Parenting",
+        "Personal",
+        "Pet",
+        "Political",
+        "Photography",
+        "Practical",
+        "Programming",
+        "Real State",
+        "SEO",
+        "Shopping",
+        "Social",
+        "Social Media",
+        "Spetiraul",
+        "Sports",
+        "Technology",
+        "Travel",
+        "University",
+        "Vehicle",
+        "Wine",
+        "Wedding"
+      ],
+      discription: "",
+      category: ""
+    };
+  },
+  watch: {
+    overlay(val) {
+      val &&
+        setTimeout(() => {
+          this.overlay = false;
+        }, 3000);
+    }
+  },
 
   methods: {
-    // setEditorContent: function() {
-    //   this.content =
-    //     '<p>kusdhkjf</p><p>sdbfjsd</p><p>sskdfks</p><p>sldjfna</p><p>skjgdfksd</p><p>sjgfks</p><p>sdl;fjk</p><p>&lt;script&gt;alert("hello word")&lt;/script&gt;</p><p><br></p><p>kjhkjdg</p><p>dfmglmd</p><p>kdjfhgkjs</p><p>sdfkjhsdf</p><p>sdflkhgksdf</p><p>gkshfgmsd</p><p>fkshfdksd</p><p>fhsdkjfnsdfd</p><p>njsfkln</p><p>flsjdfl<em>fdg</em></p><p><br></p><p><em>sfg</em></p><p><em>sdfgsdfg</em></p><p><em><u>sfgsdfgsdfg sfdg                                                           sdfgsdfgsdfg                                                   afsgsdfgsdf</u></em></p><p><br></p><p><br></p><p>dfsgsdg                                                                                                dsfgsdfgsdfgsfdgsfdgsdfgsdfgsdf                        sdfgsdfgsdf</p><p><br></p><p>sdfgsdf</p><p>sfdg</p><ul data-checked="false"><li>sdf</li><li><span style="background-color: rgb(153, 51, 255);">sdfgsdfg</span></li><li><span style="background-color: rgb(153, 51, 255);">sdf</span></li><li><span style="background-color: rgb(153, 51, 255);">gs</span></li><li><span style="background-color: rgb(153, 51, 255);">dfg</span></li><li><span style="background-color: rgb(153, 51, 255);">sd</span></li></ul><p><br></p><p><span style="background-color: rgb(153, 51, 255);">f,gnksdf</span></p>';
-    // },
-    // handleSavingContent: function() {
-    //   // You have the content to save
-    //   console.log(this.content);
-    // }
+    getFiles(obj) {
+      this.image = obj.original.file;
+      console.log(obj);
+    },
+    setEditorContent: function() {
+      this.content = "<p>dfgcncdc</p>";
+    },
+    handleSavingContent: function() {
+      // You have the content to save
+      console.log(this.content);
+    },
+
+    async publish() {
+      this.overlay = !this.overlay;
+      let data = new FormData();
+      data.append("title", this.title);
+      data.append("category", this.category);
+      data.append("content", this.content);
+      data.append("discription", this.discription);
+      data.append("token", localStorage.getItem("token"));
+      data.append("image", this.image);
+      let url = "http://127.0.0.1:3333/publishblog";
+      let options = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      await HTTP()
+        .post(url, data, options)
+        .then(data => {
+          if (data.data == 1) {
+            alert("Blog uploaded successfully");
+            this.$router.push({ name: "showblog" });
+          } else {
+            alert("Error while uploading blog");
+          }
+        });
+    }
   }
 };
 </script>

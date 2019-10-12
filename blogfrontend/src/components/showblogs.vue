@@ -43,14 +43,14 @@
             </v-row>
             <v-col cols="12" class="pb-0 pt-0">
               <v-row>
-                <v-col v-for="n in 10" :key="n" cols="12">
+                <v-col v-for="(data, index) in data" :key="index" cols="12">
                   <v-card elevation="1" class="mx-auto">
                     <v-row class="mb-n6">
                       <v-col cols="3" class="mt-n3 mb-1">
                         <v-img
                           class="white--text"
                           height="110px"
-                          src="https://cdn.vuetifyjs.com/images/cards/house.jpg"
+                          :src="imageSrc + data.image"
                         ></v-img>
                       </v-col>
 
@@ -70,7 +70,7 @@
                                     <v-chip pill v-on="on" color="#ECEFF1">
                                       <v-avatar left>
                                         <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-                                      </v-avatar>Ram Lal Jat
+                                      </v-avatar>{{data.authorName}}
                                     </v-chip>
                                   </template>
                                   <v-card width="300">
@@ -80,7 +80,7 @@
                                           <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
                                         </v-list-item-avatar>
                                         <v-list-item-content>
-                                          <v-list-item-title>RAM LAL JAT</v-list-item-title>
+                                          <v-list-item-title>{{data.authorName}}</v-list-item-title>
                                           <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
                                         </v-list-item-content>
                                         <v-list-item-action>
@@ -111,7 +111,7 @@
                               <v-col>
                                 <span>Publish On</span>
                                 <br />
-                                <span class="subtitle-2 font-weight-bold">12/02/2019</span>
+                                <span class="subtitle-2 font-weight-bold">{{data.created_at}}</span>
                               </v-col>
 
                               <v-col>
@@ -139,15 +139,15 @@
                         </v-subheader>
                       </v-col>
                     </v-row>
-                    <router-link to="/readblog" exact>
+                     <a @click='goToPost(data.id)'>
                       <v-card-title
                         class="align-end title fill-height"
-                      >Top 10 Australian beaches Top 10 Australian beachesTop 10 Australian beaches</v-card-title>
-                    </router-link>
+                      >{{data.title}}</v-card-title>
+                    </a>
                     <v-card-text class="mt-n5 mb-n2">
-                      <span>description descriptiondescription description goes here</span>
-                      <br />
-                      <span>Click here -> https://cdn.vuetifyjs.com/images/john.jpg</span>
+                      <span>
+                        {{data.discription}}
+                      </span>
                     </v-card-text>
 
                     <v-card-actions>
@@ -172,11 +172,45 @@
 </template>
 
 <script>
+import axios from 'axios'
+import HTTP from '../http'
+import router from '../router'
+import store from "../store"
 export default {
   data: () => ({
+    data:[],
     show: false,
     rating: 4,
-    menu: false
-  })
+    menu: false,
+    imageSrc : 'http://127.0.0.1:3333/uploads/blogPicture/',
+  }),
+  created: function (){
+    this.showAllBlogs();
+  },
+  methods: {
+    async  showAllBlogs(){
+      let token;
+      if(localStorage.getItem('token'))
+       token = localStorage.getItem('token') ;
+      else 
+       token = null ;
+      await axios
+      .get('http://127.0.0.1:3333/getAllBlogData',{
+            params: {
+              token
+            }
+          })
+      .then( (data) => {
+        if(data.data){
+        store.state.blogData =this.data= [...data.data]; 
+         }
+         } )
+      .catch(error => console.log(error))    
+         },
+ 
+  goToPost(id){
+      this.$router.push({name: 'readblog', params: {id:id }})
+    }
+     },
 };
 </script>
