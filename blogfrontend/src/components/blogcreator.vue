@@ -103,12 +103,7 @@
             <v-col cols="12">
               <p>Blog</p>
               <v-card>
-                <vue-editor
-                  id="blog"
-                  v-model="content"
-                  :editorOptions="editorSettings"
-                  placeholder="Write your valuable content..."
-                ></vue-editor>
+                <vue-editor id="editor" :editorOptions="editorSettings" v-model="content"></vue-editor>
               </v-card>
 
               <br />
@@ -125,7 +120,7 @@
                 rows="6"
                 row-height="15"
               ></v-textarea>
-                           
+
               <v-btn @click="handleSavingContent">Save Content</v-btn>
               <v-btn @click="setEditorContent">Set Editor Content</v-btn>
             </v-col>
@@ -157,7 +152,7 @@ export default {
   },
   data() {
     return {
-      content: "<h1>first class</h1>",
+      content: "<h1>Initial Content</h1>",
       editorSettings: {
         modules: {
           imageDrop: true,
@@ -168,7 +163,6 @@ export default {
       scale: 100,
       quality: 50,
       overlay: false,
-      
       title: "",
       dropdown_font: [
         "Academic",
@@ -238,12 +232,13 @@ export default {
       console.log(obj);
     },
     setEditorContent: function() {
-      this.content = '<p>dfgcncdc</p>'
+      this.content = "<p>dfgcncdc</p>";
     },
     handleSavingContent: function() {
       // You have the content to save
       console.log(this.content);
     },
+
     async publish() {
       this.overlay = !this.overlay;
       let data = new FormData();
