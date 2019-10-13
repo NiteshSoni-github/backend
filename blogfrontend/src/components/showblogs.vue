@@ -201,6 +201,7 @@ export default {
             }
           })
       .then( (data) => {
+        console.log(data);
         if(data.data){
         store.state.blogData =this.data= [...data.data]; 
          }

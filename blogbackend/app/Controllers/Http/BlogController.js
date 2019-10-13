@@ -24,7 +24,7 @@ class BlogController {
         const decrypted = Encryption.decrypt(token)
         const authorName = decrypted.f_name
          const authorId = decrypted.id
-         console.log(authorName)
+        
     const blog = await Blog.create({
         title,
         category,
@@ -50,6 +50,21 @@ class BlogController {
     let post = await Blog.query().where('id',request.input('id')).first()
     return response.send(post.toJSON())
   }
+ 
+//   async testing({request,response}){
+
+//   const imag = request.file('image1', {
+//       types: ['image'],
+//       size: '6mb'
+//     })
+//     const image = new Date().getTime()+'.'+imag.subtype
+//     await imag.move(Helpers.publicPath('uploads/testing'), {
+//       name: image,
+//     })
+
+// return 'http://127.0.0.1:3333/testing';
+
+// };
 }
 
 module.exports = BlogController
