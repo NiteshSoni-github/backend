@@ -31,7 +31,7 @@
       </v-btn>
 
       <v-btn
-        color="orange"`
+        color="orange"
         text
       >
         Explore
