@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-container fluid>
+    <v-container fluid style="background-color:#EFFDFF">
       <!-- create blog heading-->
       <v-row>
         <v-col cols="2" class="d-none d-md-block"></v-col>
@@ -12,7 +12,7 @@
                 <span class="headline">BLOGS</span>
                 <div class="flex-grow-1"></div>
                 <v-text-field
-                  v-if="!seen"
+                  
                   class="ml-2 purple--text"
                   :autofocus="true"
                   background-color="#eee"
@@ -33,13 +33,13 @@
             </v-col>
 
             <v-row>
-              <v-cols>
+              <v-col>
                 <v-expand-transition>
                   <div v-show="show">
                     <v-card-text class="mx-2">It's come very soon...</v-card-text>
                   </div>
                 </v-expand-transition>
-              </v-cols>
+              </v-col>
             </v-row>
             <v-col cols="12" class="pb-0 pt-0">
               <v-row>

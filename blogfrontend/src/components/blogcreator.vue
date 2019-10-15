@@ -1,6 +1,6 @@
 s<template>
   <v-form method="POST" enctype="multipart/form-data">
-    <v-container fluid>
+    <v-container fluid style="background-color:#EFFDFF">
       <!-- create blog heading-->
       <v-row>
         <v-col cols="2" class="d-none d-md-block"></v-col>
@@ -11,8 +11,6 @@ s<template>
                 <span class="title">CREATE BLOG</span>
                 <div class="flex-grow-1"></div>
                 <v-btn
-                  :loading="loading3"
-                  :disabled="loading3"
                   class="ml-2 black--text"
                   @click="overlay = !overlay"
                 >
@@ -21,8 +19,6 @@ s<template>
                 </v-btn>
 
                 <v-btn
-                  :loading="loading3"
-                  :disabled="loading3"
                   color="info"
                   class="ml-2 white--text"
                   @click="overlay = !overlay"
@@ -32,8 +28,7 @@ s<template>
                 </v-btn>
 
                 <v-btn
-                  :loading="loading3"
-                  :disabled="loading3"
+                  
                   color="success"
                   class="ml-2 white--text"
                   @click="publish"
@@ -103,13 +98,11 @@ s<template>
             <v-col cols="12">
               <p>Blog</p>
               <v-card>
-                <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" :editorOptions="editorSettings" v-model="content"></vue-editor>
+                <vue-editor id="editor" :editorOptions="editorSettings" v-model="content"></vue-editor>
+              <!--useCustomImageHandler @image-added="handleImageAdded" -->
               </v-card>
-
               <br />
-
               <p>Discription</p>
-
               <v-textarea
                 v-model="discription"
                 color="deep-purple accent-4"

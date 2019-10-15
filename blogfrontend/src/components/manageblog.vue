@@ -1,6 +1,6 @@
 <template>
-  <div class="manageblog">
-    <v-container fluid>
+  <div class="manageblog" >
+    <v-container fluid style="background-color:#EFFDFF">
       <v-row>
         <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
         <v-col cols="12" md="8" class="d-none d-md-block">
@@ -253,7 +253,7 @@ export default {
   data: () => ({
     tabs: null,
     items: ["ss","Draft", "My Favourite",  "Published"],
-
+    search:null,
     singleSelect: false,
     selected: [],
     dialog: false,
