@@ -24,6 +24,7 @@
                 </v-card>
               </v-col>
               <v-col cols="2">
+                
                 <v-card>
                   <v-card-title class="amber lighten-1 justify-center">
                     <h4 class="mr-4 white--text font-weight-light">& Manage Blogs</h4>
