@@ -5,41 +5,16 @@
         <v-flex>
           <h1 class="display-3 font-weight-regular mt-12">Explore The Knowledge</h1>
           <br />
-          <h1 class="font-weight-thin mb-12">Just By Creating & Reading Blogs</h1>
-          <v-row >
-            <v-col cols="3"></v-col>
-            <v-col cols="2">
-              <v-card>
-                <v-card-title class="purple lighten-2 justify-center">
-                  <h4 class="white--text font-weight-light">Read Blogs</h4>
-                </v-card-title>
-              </v-card>
-            </v-col>
-            <v-col cols="2">
-              <v-card>
-                <v-card-title class="cyan lighten-1 justify-center" >
-                  <h4 class="white--text font-weight-light">Create Blogs</h4>
-                </v-card-title>
-              </v-card>
-            </v-col>
-            <v-col cols="2">
-              <v-card>
-                <v-card-title class="amber lighten-1 justify-center">
-                  <h4 class="mr-4 white--text font-weight-light">& Manage Blogs</h4>
-                </v-card-title>
-              </v-card>
-            </v-col>
-            <v-col cols="3"></v-col>
-          </v-row>
-     
+          <h1 class="font-weight-thin mb-n12">Just By Creating & Reading Blogs</h1>
         </v-flex>
       </v-layout>
     </v-container>
+
     <section>
       <v-parallax dark height="900" src="./../../public/background1.jpg">
         <v-layout row wrap text-center align-center>
           <v-flex class="black--text mt-n12">
-            <h1 class="display-3 font-weight-regular ">Read, You Want</h1>
+            <h1 class="display-3 font-weight-regular">Read, You Want</h1>
             <br />
             <h1 class="display-1 font-weight-thin">From Thousand Of Blogs</h1>
             <v-row>
@@ -66,6 +41,7 @@
             <br />
             <h1 class="display-1 font-weight-thin">Just In Three Steps</h1>
             <br />
+
             <v-row>
               <v-col cols="4"></v-col>
               <v-col cols="4">
@@ -104,7 +80,46 @@
         </v-layout>
       </v-parallax>
     </section>
-
+    <section>
+      <v-parallax dark height="900" src="./../../public/background3.jpg">
+        <v-layout row wrap text-center align-center>
+          <v-flex>
+            <h1 class="display-3 font-weight-regular mt-n12 black--text">At Eloopin You Can</h1>
+            <br />
+            <h1 class="display-1 font-weight-thin mb-n12 black--text">Try These</h1>
+            <br />
+            <br />
+            <br />
+            <br />
+            <v-row>
+              <v-col cols="3"></v-col>
+              <v-col cols="2">
+                <v-card>
+                  <v-card-title class="purple lighten-2 justify-center">
+                    <h4 class="white--text font-weight-light">Read Blogs</h4>
+                  </v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="2">
+                <v-card>
+                  <v-card-title class="cyan lighten-1 justify-center">
+                    <h4 class="white--text font-weight-light">Create Blogs</h4>
+                  </v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="2">
+                <v-card>
+                  <v-card-title class="amber lighten-1 justify-center">
+                    <h4 class="mr-4 white--text font-weight-light">& Manage Blogs</h4>
+                  </v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="3"></v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
+      </v-parallax>
+    </section>
     <v-footer dark padless>
       <v-card flat tile class="indigo lighten-1 white--text text-center">
         <v-card-text>
