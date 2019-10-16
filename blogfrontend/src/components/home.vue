@@ -3,7 +3,8 @@
     <v-container fluid class="background_image" fill-height grid-list-md text-center>
       <v-layout row wrap align-center>
           <v-flex>
-           <h1 class="display-3 font-weight-regular blog">Read, Create & Manage Blogs</h1>
+           <h1 class="display-3 font-weight-regular blog">Exchange The Knowledge Over The World</h1>
+
           </v-flex>
         </v-layout>
     </v-container>
@@ -64,7 +65,14 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong> Eloopin</strong>
+        <router-link to="/privacypolicy" exact class="white--text"> 
+          Privacy Policy
+        </router-link>
+        <br>
+        <br>
+        {{ new Date().getFullYear() }} — <strong > Eloopin</strong>
+        
+       
       </v-card-text>
     </v-card>
   </v-footer>

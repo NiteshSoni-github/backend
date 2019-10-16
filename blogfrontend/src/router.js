@@ -55,6 +55,11 @@ const router= new Router({
       path: '/editblog',
       name: 'editblog',
       component: () => import('./components/editblog.vue')
+    },
+    {
+      path: '/privacypolicy',
+      name: 'privacypolicy',
+      component: () => import('./views/privacyPolicy.vue')
     }
   ]
 })
