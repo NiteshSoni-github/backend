@@ -4,10 +4,11 @@
       <v-row>
         <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
         <v-col cols="12" md="8" class="d-none d-md-block">
-          <!-- <v-card-actions class="mx-n2">
-            <v-icon large mr-2>perm_identity</v-icon>
-            <span class="display-1 font-weight-thin">Profile</span> 
-          </v-card-actions> -->
+          <v-card-actions class="mt-12 mb-6">
+            <div class="flex-grow-1"></div>
+            <span class="display-3 font-weight-thin">Profile</span> 
+            <div class="flex-grow-1"></div>
+          </v-card-actions> 
           <v-card-actions class="mx-n2">
             <span class="title font-weight-regular">1. Personal Information</span>
           </v-card-actions>

@@ -87,13 +87,16 @@
     <!-- v-toolbar visable on small screen -->
     <v-toolbar class="d-md-none" fixed :elevation="2" light flat>
       <template v-if="seenmobile">
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>Eloopin</v-toolbar-title>
         <div class="flex-grow-1"></div>
-        <v-btn icon v-on:click="seenmobile = !seenmobile">
+        <!-- <v-btn icon v-on:click="seenmobile = !seenmobile">
           <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
+        </v-btn> -->
+ <span class="navbuttons">
+          <router-link to="/login" exact class="loginsignup">
+            <v-btn small outlined color="indigo">Login/ Signup</v-btn>
+          </router-link>
+        </span>
         <v-menu offset-y bottom v-model="menu" :close-on-content-click="true">
           <!--   :nudge-width="auto" -->
           <template v-slot:activator="{ on }">
@@ -148,45 +151,43 @@
           <v-icon>close</v-icon>
         </v-btn>
       </template>
+      
       <template v-slot:extension>
-        <v-tabs light>
-          <v-tabs-slider></v-tabs-slider>
-
-          <v-tab class="ml-0" :href="'#tab1'">
-            <router-link to="/" exact>
+        <v-tabs light class="navbuttons">
+          <v-tab>
+          <router-link to="/" exact  class="black--text">
+            <span class="first">
               <v-icon left>home</v-icon>HOME
-            </router-link>
+           </span>
+          </router-link>
           </v-tab>
-          <v-tab :href="'#tab2'">
-            <router-link to="/showblog" exact>
-              <v-icon left>remove_red_eye</v-icon>Show BLOG
-            </router-link>
+          <v-tab>
+          <router-link to="/showblog" exact  class="black--text">
+           <span>
+              <v-icon left>remove_red_eye</v-icon>BLOGS
+           </span>
+          </router-link>
           </v-tab>
-          <v-tab :href="'#tab3'">
-            <router-link to="/createblog" exact>
+          <v-tab>
+          <router-link to="/createblog" exact  class="black--text">
+         <span>
               <v-icon left>create</v-icon>Create Blog
-            </router-link>
+         </span>
+          </router-link>
           </v-tab>
-          <v-tab :href="'#tab4'">
-            <router-link to="/manageblog" exact>
-              <v-icon left>settings_applications</v-icon>Manage blogs
-            </router-link>
+          <v-tab>
+          <router-link to="/manageblog" exact  class="black--text">
+        <span>
+              <v-icon left>settings_applications</v-icon>Manage Blogs
+        </span>
+          </router-link>
           </v-tab>
+           
         </v-tabs>
       </template>
     </v-toolbar>
 
-    <!-- side navigation drawer for nav-icon -->
 
-    <v-navigation-drawer
-      temporary
-      clipped
-      fixed
-      v-if="drawer"
-      class="d-none d-md-block"
-      v-model="drawer"
-      style="height: 100vh; top: 64px; transform: translateX(0%); width:300px; max-height: calc(100% - 64px);"
-    ></v-navigation-drawer>
   </div>
 </template>
 
@@ -197,29 +198,17 @@ export default {
     return {
       seen: true,
       seenmobile: true,
-      fav: true,
+     
       menu: false,
       menumobile: false,
-      message: false,
-      hints: true,
-      drawer: false,
-      drawerbottom: false,
+     
 
       items: [
         { title: "Profile", icon: "perm_identity" }
         // { title: "Suggestion or Feedback", icon: "assignment" },
       ],
-      sheet: false,
-      tiles: [
-        { icon: "settings_applications", title: "Setting" },
-        { icon: "create", title: "home" },
-        { icon: "schedule", title: "blog" },
-        { icon: "mdi-logout", title: "consult" },
-        { icon: "contact_support", title: "consult" },
-        { icon: "", title: "" }
-      ],
-      tab: null,
-      model: "tab-2"
+    
+    
     };
   },
   computed: {
@@ -239,6 +228,10 @@ export default {
 };
 </script>
 <style >
+.v-tabs-bar.v-slide-group--is-overflowing.v-tabs-bar--is-mobile:not(.v-tabs-bar--show-arrows):not(.v-slide-group--has-affixes) .v-slide-group__prev {
+   display: none !important;
+   
+}
 .navbuttons a {
   text-decoration: inherit;
 }
@@ -246,6 +239,12 @@ export default {
   color: blue !important;
 }
 .router-link-exact-active .v-btn {
+  color: blue !important;
+}
+.router-link-exact-active .first{
+  color: blue !important;
+}
+.router-link-exact-active span{
   color: blue !important;
 }
 .v-text-field.v-text-field--solo .v-input__control {

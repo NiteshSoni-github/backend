@@ -98,8 +98,8 @@ s<template>
             <v-col cols="12">
               <p>Blog</p>
               <v-card>
-                <vue-editor id="editor" :editorOptions="editorSettings" v-model="content"></vue-editor>
-              <!--useCustomImageHandler @image-added="handleImageAdded" -->
+                <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" :editorOptions="editorSettings" v-model="content"></vue-editor>
+              <!--" -->
               </v-card>
               <br />
               <p>Discription</p>
@@ -222,7 +222,7 @@ export default {
   methods: {
     getFiles(obj) {
       this.image = obj.original.file;
-      console.log(obj);
+     
     },
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
@@ -233,40 +233,41 @@ export default {
     },
 
  
-    // async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
-    //   // An example of using FormData
-    //   // NOTE: Your key could be different such as:
-    //   // formData.append('file', file)
-    //   let formData = new FormData(); 
-    //   console.log(file);       
-    //   formData.append("image1", file);
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      // An example of using FormData
+      // NOTE: Your key could be different such as:
+      // formData.append('file', file)
+      let formData = new FormData(); 
+      // console.log(file);       
+      formData.append("image1", file);
 
-    //    let url= "http://127.0.0.1:3333/testing"; 
-    //    let data= formData;
-    //    let options = {
-    //     headers: {
-    //       "content-type": "multipart/form-data"
-    //     }
-    //   };
-    //   // console.log(data);
-    //  await HTTP()
-    //     .post(url, data, options)
-    //     .then(result => {
-    //       // console.log(result);
+       let url= "http://127.0.0.1:3333/testing"; 
+       let data= formData;
+      //  console.log(data);  
+       let options = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      // console.log(data);
+     await HTTP()
+        .post(url, data, options)
+        .then(result => {
+          console.log(result);
           
-    //       if (result.data == 1) {
-    //         alert("image uploaded successfully");  
-    //       } else {
-    //         alert("Error while uploading blog");
-    //       }
-    //       let url = result.data; // Get url from response
-    //       Editor.insertEmbed(cursorLocation, "image1", url);
-    //       resetUploader();
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // },
+          if (result.data == 1) {
+            alert("image uploaded successfully");  
+          } else {
+            alert("Error while uploading blog");
+          }
+          let url = result.data; // Get url from response
+          Editor.insertEmbed(cursorLocation, "image1", url);
+          resetUploader();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     async publish() {
       this.overlay = !this.overlay;
       let data = new FormData();
@@ -286,7 +287,7 @@ export default {
       await HTTP()
         .post(url, data, options)
         .then(data => {
-          console.log(data);
+          // console.log(data);
           if (data.data == 1) {
             alert("Blog uploaded successfully");
             this.$router.push({ name: "showblog" });

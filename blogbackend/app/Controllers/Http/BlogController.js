@@ -51,20 +51,21 @@ class BlogController {
     return response.send(post.toJSON())
   }
  
-//   async testing({request,response}){
+  async testing({request,response}){
 
-//   const imag = request.file('image1', {
-//       types: ['image'],
-//       size: '6mb'
-//     })
-//     const image = new Date().getTime()+'.'+imag.subtype
-//     await imag.move(Helpers.publicPath('uploads/testing'), {
-//       name: image,
-//     })
+  const imag = request.file('image', {
+      types: ['image'],
+      size: '6mb'
+    })
+    console.log(imag.subtype);
+    // const image = new Date().getTime()+'.'+imag.subtype
+    // // await imag.move(Helpers.publicPath('uploads/testing'), {
+    // //   name: image,
+    // // })
+  
+return 1;
 
-// return 'http://127.0.0.1:3333/testing';
-
-// };
+};
 }
 
 module.exports = BlogController
