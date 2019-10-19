@@ -46,12 +46,12 @@
                       <v-col cols="12" md="3" class="mt-n3 mb-1">
                         <v-img class="white--text" height="110px" :src="imageSrc + data.image"></v-img>
                       </v-col>
-                   
+
                       <v-col cols="12" md="9" class="text-center mt-4">
                         <v-subheader>
                           <v-container class="pa-0">
                             <v-row>
-                              <v-col >
+                              <v-col>
                                 <v-menu
                                   v-model="menu"
                                   bottom
@@ -102,13 +102,13 @@
                                 <span class="subtitle-2 font-weight-bold">123k</span>
                               </v-col>
 
-                              <v-col >
+                              <v-col>
                                 <span>Publish On</span>
                                 <br />
                                 <span class="subtitle-2 font-weight-bold">{{data.created_at}}</span>
                               </v-col>
 
-                              <v-col >
+                              <v-col>
                                 <span>Rating</span>
                                 <br />
                                 <v-rating
@@ -132,7 +132,6 @@
                           </v-container>
                         </v-subheader>
                       </v-col>
-                   
                     </v-row>
                     <a @click="goToPost(data.id)">
                       <v-card-title class="align-end title fill-height">{{data.title}}</v-card-title>
@@ -162,7 +161,7 @@
             <v-col cols="12" class="mb-n12">
               <v-card-actions class="mx-n2 my-n4">
                 <!-- <span class="headline">BLOGS</span>
-                <div class="flex-grow-1"></div> -->
+                <div class="flex-grow-1"></div>-->
                 <v-text-field
                   class="ml-2 purple--text"
                   background-color="#eee"
@@ -178,7 +177,7 @@
                 <!-- <v-btn text color="grey" @click="show = !show" class="ml-2 white--text">
                   <span>Filter</span>
                   <v-icon bottom dark>filter_list</v-icon>
-                </v-btn> -->
+                </v-btn>-->
               </v-card-actions>
             </v-col>
 
