@@ -87,7 +87,11 @@
     <!-- v-toolbar visable on small screen -->
     <v-toolbar class="d-md-none" fixed :elevation="2" light flat>
       <template v-if="seenmobile">
-        <v-toolbar-title>Eloopin</v-toolbar-title>
+        <v-toolbar-title>
+          <router-link to="/" exact>
+            <v-img src="./../../public/logo.png" alt="avatar" max-width="120" max-height="40"></v-img>
+          </router-link>
+        </v-toolbar-title>
         <div class="flex-grow-1"></div>
         <!-- <v-btn icon v-on:click="seenmobile = !seenmobile">
           <v-icon>mdi-magnify</v-icon>
@@ -111,7 +115,7 @@
             <v-divider></v-divider>
 
             <v-list dense nav class="ml-2 mt-2">
-              <v-list-item v-for="item in items" :key="item.title" link>
+              <v-list-item v-for="item in items" :key="item.title"  link to="/profile">
                 <v-list-item-icon class="mr-3">
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-icon>
