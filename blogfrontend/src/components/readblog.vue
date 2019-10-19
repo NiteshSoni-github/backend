@@ -1,6 +1,6 @@
 <template>
   <v-form>
-    <v-container fluid>
+    <v-container fluid style="background-color:#EFFDFF">
       <!-- create blog heading-->
       <v-row>
         <v-col cols="2" class="d-none d-md-block"></v-col>

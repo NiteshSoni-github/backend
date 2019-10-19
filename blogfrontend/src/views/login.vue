@@ -1,7 +1,6 @@
 <template>
   <div class="backimage">
     <v-container fluid>
-      
       <div>
         <v-row>
           <v-col cols="12" md="3" class="d-none d-md-block"></v-col>
@@ -19,47 +18,54 @@
               <v-divider></v-divider>
               <v-card-text class="headline text-center">Login</v-card-text>
               <v-card-text>
-                <v-form class="mx-12">
-                  <v-text-field v-model='login_email' :rules="emailRules" label="E-mail"></v-text-field>
-                  <v-text-field
-                    v-model="login_password"
-                    :append-icon="show2 ? 'visibility' : 'visibility_off'"
-                    :rules="[rules.required, rules.min]"
-                    :type="show2 ? 'text' : 'password'"
-                    name="input-10-2"
-                    label="Password"
-                    @click:append="show2 = !show2"
-                  ></v-text-field>
+                <v-row>
+                <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
+                <v-col cols="12" md="8">
+                  <v-form>
+                    <v-text-field v-model="login_email" :rules="emailRules" label="E-mail"></v-text-field>
+                    <v-text-field
+                      v-model="login_password"
+                      :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                      :rules="[rules.required, rules.min]"
+                      :type="show2 ? 'text' : 'password'"
+                      name="input-10-2"
+                      label="Password"
+                      @click:append="show2 = !show2"
+                    ></v-text-field>
 
-                  <p class="text-right">
-                    <v-dialog v-model="dialog1" persistent max-width="600px">
-                      <template v-slot:activator="{ on }">
-                        <v-btn small text color="primary" dark v-on="on">Forgot PAssword</v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title></v-card-title>
+                    <p class="text-right">
+                      <v-dialog v-model="dialog1" persistent max-width="600px">
+                        <template v-slot:activator="{ on }">
+                          <v-btn small text color="primary" dark v-on="on">Forgot PAssword</v-btn>
+                        </template>
+                        <v-card>
+                          <v-card-title></v-card-title>
 
-                        <v-card-text class="headline text-center">Enter Your Email</v-card-text>
-                        <v-card-text>
-                          <v-container>
-                            <v-row>
-                              <v-col cols="12">
-                                <v-text-field label="Email*" required></v-text-field>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-card-text>
-                        <v-card-actions>
-                          <div class="flex-grow-1"></div>
-                          <v-btn class="mx-2" @click="dialog1 = false">Close</v-btn>
-                          <v-btn color="primary" @click="dialog1 = false">Send</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </p>
+                          <v-card-text class="headline text-center">Enter Your Email</v-card-text>
+                          <v-card-text>
+                            <v-container>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field label="Email*" required></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </v-card-text>
+                          <v-card-actions>
+                            <div class="flex-grow-1"></div>
+                            <v-btn class="mx-2" @click="dialog1 = false">Close</v-btn>
+                            <v-btn color="primary" @click="dialog1 = false">Send</v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </p>
 
-                  <v-btn color="primary" @click='login'>Login</v-btn>
-                </v-form>
+                    <v-btn color="primary" @click="login">Login</v-btn>
+                  </v-form>
+                </v-col>
+
+                <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
+                </v-row>
               </v-card-text>
               <v-divider class="mt-4"></v-divider>
 
@@ -84,20 +90,22 @@
                     <v-card-text class="headline text-center">Sign Up</v-card-text>
                     <v-card-text>
                       <v-container>
+                        <v-form>
                         <v-row>
+                          
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model='f_name' label="First name*" required></v-text-field>
+                            <v-text-field v-model="f_name" label="First name*" required></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
                             <v-text-field
-                              v-model='m_name'
+                              v-model="m_name"
                               label="middle name"
                               hint="example of helper text only on focus"
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
                             <v-text-field
-                              v-model='l_name'
+                              v-model="l_name"
                               label="last name*"
                               hint="example of persistent helper text"
                               persistent-hint
@@ -105,11 +113,16 @@
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12">
-                            <v-text-field v-model='email' label="Email*" required hint="For example, xyz@mail.com"></v-text-field>
+                            <v-text-field
+                              v-model="email"
+                              label="Email*"
+                              required
+                              hint="For example, xyz@mail.com"
+                            ></v-text-field>
                           </v-col>
                           <v-col cols="12">
                             <v-text-field
-                              v-model='password'
+                              v-model="password"
                               label="Password*"
                               required
                               hint="For example, Xyz122@#"
@@ -122,7 +135,7 @@
                           </v-col>
                           <v-col cols="12">
                             <v-text-field
-                              v-model='mobile'
+                              v-model="mobile"
                               label="Contact No."
                               value="+91"
                               hint="For Example,9876543210"
@@ -131,7 +144,7 @@
                           </v-col>
                           <v-col cols="12" sm="4">
                             <v-select
-                              v-model='age'
+                              v-model="age"
                               :items="['0-17', '18-29', '30-54', '54+']"
                               label="Age*"
                               required
@@ -139,7 +152,7 @@
                           </v-col>
                           <v-col cols="12" sm="4">
                             <v-select
-                              v-model='gender'
+                              v-model="gender"
                               :items="['Male','Female']"
                               label="Gender*"
                               required
@@ -148,13 +161,14 @@
 
                           <v-col cols="12" sm="4">
                             <v-autocomplete
-                              v-model='interests'
+                              v-model="interests"
                               :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
                               label="Interests"
                               multiple
                             ></v-autocomplete>
                           </v-col>
                         </v-row>
+                        </v-form>
                       </v-container>
                       <small>*indicates required field</small>
                     </v-card-text>
@@ -179,17 +193,17 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import HTTP from '../http'
-import router from '../router'
+import axios from "axios";
+import HTTP from "../http";
+import router from "../router";
 export default {
   data() {
     return {
       dialog: false,
       dialog1: false,
-      login_email:'',
-      login_password:'',
-      password:'',
+      login_email: "",
+      login_password: "",
+      password: "",
       email: "",
       emailRules: [
         // v => !!v || "E-mail is required",
@@ -201,68 +215,63 @@ export default {
       show4: false,
       rules: {
         required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
-       // emailMatch: () => "The email and password you entered don't match"
+        min: v => v.length >= 8 || "Min 8 characters"
+        // emailMatch: () => "The email and password you entered don't match"
       },
-      f_name:'',
-      m_name:'',
-      l_name:'',
-      mobile:'',
-      age:'',
-      gender:'',
-      interests:'',
-      d:'',
+      f_name: "",
+      m_name: "",
+      l_name: "",
+      mobile: "",
+      age: "",
+      gender: "",
+      interests: "",
+      d: ""
     };
   },
   methods: {
-      async signup(){
-         let data = new FormData()
-         data.append('f_name', this.f_name)
-         data.append('m_name', this.m_name)
-         data.append('l_name', this.l_name)
-         data.append('email', this.email)
-         data.append('password', this.password)
-         data.append('mobile', this.mobile)
-         data.append('age', this.age)
-         data.append('gender', this.gender)
-         data.append('interests', this.interests)         
-                let url = 'http://127.0.0.1:3333/register'                
-                await HTTP().post(url, data).then((data)=>{
-                       if(data.data==1)
-                        {
-                          this.dialog=false;
-                          this.login_email=this.email;
-                          this.login_password=this.password;
-                        }
-                        else
-                        {
-                          alert("Email Id or Phone Number already register");
-                        this.dialog=true;
-                        }
-                    
-                })
-        
-      },
-      async login(){
-        let data = new FormData()
-        data.append('email', this.login_email)
-        data.append('password', this.login_password)
-        let url = 'http://127.0.0.1:3333/login'                
-                await HTTP().post(url, data).then((data)=>{
-                       if(data.data!=0)
-                        {
-                          alert('login success');
-                          localStorage.setItem('token',data.data)
-                          this.$router.push({name:'showblog'})
-                        }
-                        else
-                        {
-                          alert("Email Id or password does not match");
-                        }
-                    
-                })
-      }
+    async signup() {
+      let data = new FormData();
+      data.append("f_name", this.f_name);
+      data.append("m_name", this.m_name);
+      data.append("l_name", this.l_name);
+      data.append("email", this.email);
+      data.append("password", this.password);
+      data.append("mobile", this.mobile);
+      data.append("age", this.age);
+      data.append("gender", this.gender);
+      data.append("interests", this.interests);
+      let url = "http://127.0.0.1:3333/register";
+      await HTTP()
+        .post(url, data)
+        .then(data => {
+          if (data.data == 1) {
+            this.dialog = false;
+            this.login_email = this.email;
+            this.login_password = this.password;
+          } else {
+            alert("Email Id or Phone Number already register");
+            this.dialog = true;
+          }
+        });
     },
+    async login() {
+      let data = new FormData();
+      data.append("email", this.login_email);
+      data.append("password", this.login_password);
+      let url = "http://127.0.0.1:3333/login";
+      await HTTP()
+        .post(url, data)
+        .then(data => {
+          if (data.data != 0) {
+            alert("login success");
+            localStorage.setItem("token", data.data);
+            this.$router.push({ name: "showblog" });
+          } else {
+            alert("Email Id or password does not match");
+          }
+        });
+    }
+  }
 };
 </script>
 <style>

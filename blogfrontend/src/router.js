@@ -55,6 +55,11 @@ const router= new Router({
       path: '/editblog',
       name: 'editblog',
       component: () => import('./components/editblog.vue')
+    },
+    {
+      path: '/privacypolicy',
+      name: 'privacypolicy',
+      component: () => import('./views/privacyPolicy.vue')
     }
   ]
 })
@@ -62,7 +67,7 @@ router.beforeEach((to, from, next) => {
   store.dispatch('fetchAccessToken');
   if (to.fullPath === '/login') {
     if (store.state.accessToken) {
-      next('/');
+      next('/showblog');
     }
   }
   next();

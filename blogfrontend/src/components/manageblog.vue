@@ -1,17 +1,17 @@
 <template>
   <div class="manageblog">
-    <v-container fluid>
+    <v-container fluid style="background-color:#EFFDFF">
       <v-row>
-        <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
-        <v-col cols="12" md="8" class="d-none d-md-block">
+        <v-col cols="12" lg="2" class="d-none d-lg-block"></v-col>
+        <v-col cols="12" md="12" lg="8" class="d-none d-sm-block">
           <v-tabs slot="extension" v-model="tabs" background-color="transparent" centered>
             <v-tab v-for="n in 3" :key="n">{{ items[n] }}</v-tab>
           </v-tabs>
 
           <v-tabs-items v-model="tabs">
             <v-tab-item>
-              <v-row>    
-                <v-col cols="12" class="d-none d-md-block">
+              <v-row>
+                <v-col cols="12" class="d-none d-sm-block">
                   <v-row>
                     <v-col cols="12">
                       <v-data-table
@@ -59,13 +59,11 @@
                   </v-row>
                 </v-col>
 
-                
-
                 <v-dialog v-model="dialog" max-width="390">
                   <v-card>
-                   <v-card-title class="headline">Would like to remove this blog?</v-card-title>
+                    <v-card-title class="headline">Would like to remove this blog?</v-card-title>
 
-                  <v-card-text>Once You Remove This Blog You Will Not Able To Recover Back This Blog In Your Profile </v-card-text>
+                    <v-card-text>Once You Remove This Blog You Will Not Able To Recover Back This Blog In Your Profile</v-card-text>
                     <v-card-actions>
                       <div class="flex-grow-1"></div>
 
@@ -76,13 +74,7 @@
                   </v-card>
                 </v-dialog>
               </v-row>
-
-              
             </v-tab-item>
-
-
-
-
 
             <v-tab-item>
               <v-row>
@@ -135,13 +127,13 @@
                 </v-col>
               </v-row>
 
-               <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
+              <v-col cols="12" md="2" class="d-none d-sm-block"></v-col>
 
               <v-dialog v-model="dialog" max-width="390">
                 <v-card>
                   <v-card-title class="headline">Would like to remove this blog?</v-card-title>
 
-                  <v-card-text>Once You Remove This Blog You Will Not Able To Recover Back This Blog In Your Profile </v-card-text>
+                  <v-card-text>Once You Remove This Blog You Will Not Able To Recover Back This Blog In Your Profile</v-card-text>
 
                   <v-card-actions>
                     <div class="flex-grow-1"></div>
@@ -152,11 +144,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-
             </v-tab-item>
-
-
-
 
             <v-tab-item>
               <v-row>
@@ -212,13 +200,13 @@
                 </v-col>
               </v-row>
 
-              <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
+              <v-col cols="12" md="2" class="d-none d-sm-block"></v-col>
 
               <v-dialog v-model="dialog" max-width="390">
                 <v-card>
                   <v-card-title class="headline">Would like to remove this blog?</v-card-title>
 
-                  <v-card-text>Once You Remove This Blog You Will Not Able To Recover Back This Blog In Your Profile </v-card-text>
+                  <v-card-text>Once You Remove This Blog You Will Not Able To Recover Back This Blog In Your Profile</v-card-text>
 
                   <v-card-actions>
                     <div class="flex-grow-1"></div>
@@ -230,20 +218,17 @@
                 </v-card>
               </v-dialog>
             </v-tab-item>
-
-
           </v-tabs-items>
           <!--------->
 
           <!---------->
         </v-col>
-        <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
+        <v-col cols="12" lg="2" class="d-none d-lg-block"></v-col>
       </v-row>
 
       <!---------->
 
       <!---------->
-     
     </v-container>
   </div>
 </template>
@@ -252,8 +237,8 @@
 export default {
   data: () => ({
     tabs: null,
-    items: ["ss","Draft", "My Favourit",  "Published"],
-
+    items: ["ss", "Draft", "My Favourite", "Published"],
+    search: null,
     singleSelect: false,
     selected: [],
     dialog: false,

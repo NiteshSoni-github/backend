@@ -1,22 +1,23 @@
 <template>
   <div class="manageblog">
-    <v-container fluid>
+    <v-container fluid style="background-color:#EFFDFF">
       <v-row>
         <v-col cols="12" md="2" class="d-none d-md-block"></v-col>
         <v-col cols="12" md="8" class="d-none d-md-block">
+          <v-card-actions class="mt-12 mb-6">
+            <div class="flex-grow-1"></div>
+            <span class="display-3 font-weight-thin">Profile</span> 
+            <div class="flex-grow-1"></div>
+          </v-card-actions> 
           <v-card-actions class="mx-n2">
-            <v-icon large mr-2>perm_identity</v-icon>
-            <span class="display-1">Profile</span>
-          </v-card-actions>
-          <v-card-actions class="mx-n2">
-            <span class="title">1. Personal Information</span>
+            <span class="title font-weight-regular">1. Personal Information</span>
           </v-card-actions>
 
-          <v-card color="#EEEEEE" :loading="isUpdating">
+          <v-card color="white" :loading="isUpdating">
             <template v-slot:progress>
               <v-progress-linear absolute color="green lighten-3" height="4" indeterminate></v-progress-linear>
             </template>
-            <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/dark-beach.jpg">
+           
               <v-row>
                 <v-col class="text-right" cols="12">
                   <v-btn
@@ -30,16 +31,9 @@
                     <v-icon v-else>mdi-pencil</v-icon>
                   </v-btn>
                 </v-col>
-                <v-row class="pa-4" align="center" justify="center">
-                  <v-col class="text-center">
-                    <h3 class="headline white--text">{{ first_name }} {{mid_name}} {{last_name}}</h3>
-                    <span class="white--text text--lighten-1">{{ mobile }}</span>
-                    <v-divider></v-divider>
-                    <span class="white--text text--lighten-1">{{ email }}</span>
-                  </v-col>
-                </v-row>
+               
               </v-row>
-            </v-img>
+         
             <v-form>
               <v-container>
                 <v-row>
@@ -48,7 +42,7 @@
                       v-model="first_name"
                       :disabled="!isEditing"
                       filled
-                      color="blue-grey lighten-2"
+                     
                       label="First Name"
                     ></v-text-field>
                   </v-col>
@@ -58,7 +52,7 @@
                       v-model="mid_name"
                       :disabled="!isEditing"
                       filled
-                      color="blue-grey lighten-2"
+                 
                       label="Mid Name"
                     ></v-text-field>
                   </v-col>
@@ -67,7 +61,7 @@
                       v-model="last_name"
                       :disabled="!isEditing"
                       filled
-                      color="blue-grey lighten-2"
+                 
                       label="Mid Name"
                     ></v-text-field>
                   </v-col>
@@ -77,7 +71,7 @@
                       v-model="mobile"
                       :disabled="!isEditing"
                       filled
-                      color="blue-grey lighten-2"
+                     
                       label="Mobile"
                     ></v-text-field>
                   </v-col>
@@ -87,7 +81,7 @@
                       v-model="email"
                       :disabled="!isEditing"
                       filled
-                      color="blue-grey lighten-2"
+                     
                       label="Email"
                     ></v-text-field>
                   </v-col>
@@ -110,7 +104,7 @@
                       :items="people"
                       filled
                       chips
-                      color="blue-grey lighten-2"
+                     
                       label="Interest"
                       item-text="name"
                       item-value="name"
@@ -157,7 +151,7 @@
             </v-card-actions>
           </v-card>
           <v-card-actions class="mt-8 mx-n2">
-            <span class="title">2. Not-Personal Information :)</span>
+            <span class="title font-weight-regular">2. Not-Personal Information :)</span>
           </v-card-actions>
         </v-col>
 
