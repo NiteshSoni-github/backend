@@ -43,7 +43,7 @@
           <v-flex class="black--text mt-n12">
             <h1 class="display-3 font-weight-regular">Read, You Want</h1>
             <br />
-            <h1 class="display-1 font-weight-thin">From Thousand Of Blogs</h1>
+            <h1 class="display-1 font-weight-thin mb-3">From Thousand Of Blogs</h1>
             <v-row>
               <v-col cols="12" md="4" lg="5" class="d-none d-md-flex d-lg-block"></v-col>
               <v-col cols="12" md="4" lg="2">
