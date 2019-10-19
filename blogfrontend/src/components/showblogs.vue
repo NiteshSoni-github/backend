@@ -161,8 +161,8 @@
             <v-col cols="12"></v-col>
             <v-col cols="12" class="mb-n12">
               <v-card-actions class="mx-n2 my-n4">
-                <span class="headline">BLOGS</span>
-                <div class="flex-grow-1"></div>
+                <!-- <span class="headline">BLOGS</span>
+                <div class="flex-grow-1"></div> -->
                 <v-text-field
                   class="ml-2 purple--text"
                   background-color="#eee"
@@ -175,10 +175,10 @@
                   solo-inverted
                 ></v-text-field>
 
-                <v-btn text color="grey" @click="show = !show" class="ml-2 white--text">
+                <!-- <v-btn text color="grey" @click="show = !show" class="ml-2 white--text">
                   <span>Filter</span>
                   <v-icon bottom dark>filter_list</v-icon>
-                </v-btn>
+                </v-btn> -->
               </v-card-actions>
             </v-col>
 
