@@ -3,7 +3,7 @@
     <v-container fluid style="background-color:#EFFDFF">
       <v-row>
         <v-col cols="12" md="2" lg="2" class="d-none d-md-none d-lg-block"></v-col>
-        <v-col cols="12" md="12" lg="8" class="d-none d-sm-block">
+        <v-col cols="12" md="12" lg="8" >
           <v-card-actions class="mt-12 mb-6">
             <div class="flex-grow-1"></div>
             <span class="display-3 font-weight-thin">Profile</span> 

@@ -4,28 +4,36 @@ s<template>
       <!-- create blog heading-->
       <v-row>
         <v-col cols="12" lg="2" class="d-none d-md-none d-lg-block"></v-col>
-        <v-col cols="12" md="12" lg="8" class="d-none d-sm-block">
+        <v-col cols="12" md="12" lg="8">
           <v-row>
             <v-col cols="12">
               <v-card-actions class="mx-n2">
-                <span class="title">CREATE BLOG</span>
-                <div class="flex-grow-1"></div>
-                <v-btn class="ml-2 black--text" @click="overlay = !overlay">
-                  <span>Draft</span>
-                  <v-icon right dark>save</v-icon>
+                <span class="title d-none d-sm-block">CREATE BLOG</span>
+                
+             
+                <v-btn class=" black--text" @click="overlay = !overlay">
+                  <span >Draft</span>
+                  
+                  <v-icon right dark >save</v-icon>
                 </v-btn>
-
+<div class="flex-grow-1"></div>
                 <v-btn color="info" class="ml-2 white--text" @click="overlay = !overlay">
-                  <span>Preview</span>
-                  <v-icon right dark>remove_red_eye</v-icon>
+                  <span>preview</span>
+                  <v-icon right dark >remove_red_eye</v-icon>
                 </v-btn>
 
-                <v-btn color="success" class="ml-2 white--text" @click="publish">
+                <v-btn color="success" class="ml-2 white--text d-none d-sm-block" @click="publish">
                   <span>Publish</span>
-                  <v-icon right dark>mdi-cloud-upload</v-icon>
+                  <v-icon right dark >mdi-cloud-upload</v-icon>
                 </v-btn>
-              </v-card-actions>
-            
+ </v-card-actions>
+                <v-card-actions class="mx-n2">
+              
+             <v-btn color="success" block class="white--text d-flex d-sm-none" @click="publish">
+                  <span>Publish</span>
+                  <v-icon right dark >mdi-cloud-upload</v-icon>
+                </v-btn>
+                </v-card-actions>
             <v-overlay :value="overlay">
               <v-progress-circular indeterminate size="64"></v-progress-circular>
             </v-overlay>
@@ -36,7 +44,7 @@ s<template>
 
           <!-- write title for the blog-->
           <v-row>
-            <v-col cols="5">
+            <v-col cols="12" sm="12" md="5" lg="5">
               <p>Title</p>
               <v-card style="height:54px">
                 <v-text-field
@@ -51,7 +59,7 @@ s<template>
 
             <!-- select category for blog writing-->
 
-            <v-col cols="4">
+            <v-col cols="12" sm="6" md="4" lg="4">
               <p>Category</p>
               <v-card style="height:54px">
                 <v-overflow-btn
@@ -66,7 +74,7 @@ s<template>
               </v-card>
             </v-col>
 
-            <v-col cols="3">
+            <v-col cols="12" sm="6" md="3" lg="3">
               <p>Thumbnail</p>
               <!-- <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor> -->
               <v-file-input
