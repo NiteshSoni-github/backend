@@ -60,6 +60,30 @@ class UserController {
       const decrypted = Encryption.decrypt(token);
       return response.send(decrypted); 
     }
+    async updateProfile({request,response}){
+        let {
+          id,
+          f_name,
+          m_name,
+          l_name,
+          email,
+          mobile,
+          age,
+          interests
+      } = request.all();
+      const user = await User.query().where('id',id).first();
+      user.f_name = f_name;
+      user.m_name = m_name;
+      user.l_name = l_name;
+      user.email = email;
+      user.mobile = mobile ;
+      user.age = age ;
+      user.interests = interests ;
+      await user.save();
+      console.log("jai ho");
+      const token =  Encryption.encrypt(user)
+      return response.send(token) ;
+    } 
 }
 
 module.exports = UserController

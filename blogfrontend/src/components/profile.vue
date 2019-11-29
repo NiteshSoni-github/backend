@@ -139,6 +139,8 @@
 
             <v-card-actions>
               <div class="flex-grow-1"></div>
+              <v-btn 
+              @click="updateProfile">
               <v-btn
                 :disabled="!isEditing"
                 :loading="isUpdating"
@@ -147,6 +149,7 @@
                 @click="isUpdating = true"
               >
                 <v-icon left>mdi-update</v-icon>Save Updates
+              </v-btn>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -169,6 +172,7 @@ export default {
   data() {
     return {
       data :[],
+      id:null,
       isEditing: null,
       autoUpdate: true,
       friends: [],
@@ -227,10 +231,38 @@ created: function() {
             this.email = this.data.email;
             this.mobile = this.data.mobile;
             this.age = this.data.age;
-            this.gender = this.data.gender;
+           // this.gender = this.data.gender;
             var temp = this.data.interests;
             var nameArr = temp.split(',');
             this.friends = [...nameArr];
+            this.id = this.data.id;
+    },
+    async updateProfile(){
+      let userdata = new FormData();
+      userdata.append("id",this.id);
+      userdata.append("f_name", this.first_name);
+      userdata.append("m_name", this.mid_name);
+      userdata.append("l_name", this.last_name);
+      userdata.append("email", this.email);
+      userdata.append("mobile", this.mobile);
+      userdata.append("age", this.age);
+      userdata.append("interests", this.friends);
+      let url = "http://127.0.0.1:3333/updateProfile";
+      let options = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      await HTTP()
+        .post(url, userdata, options)
+        .then(data => {
+          if (data.data) {
+            localStorage.setItem('token',data.data);
+            this.isEditing=null;
+          } else {
+            alert("Error while updating data");
+          }
+        });
     },
     remove(item) {
       const index = this.friends.indexOf(item.name);

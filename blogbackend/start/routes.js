@@ -24,3 +24,4 @@ Route.get('/getAllBlogData', 'BlogController.getAllBlogData')
 Route.get('/getParticularBlogData', 'BlogController.getParticularBlogData')
 Route.post('/testing', 'BlogController.testing')
 Route.get('/getUserData', 'UserController.getUserData')
+Route.post('/updateProfile','UserController.updateProfile');
