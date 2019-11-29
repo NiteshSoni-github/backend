@@ -9,8 +9,7 @@ class UserController {
         const rules = {
             email: 'unique:users',
             mobile: 'unique:users'
-          }
-          
+          }    
           const validation = await validate(request.all(), rules)
         
           if (validation.fails()) {
@@ -53,10 +52,13 @@ class UserController {
          
              return(token)   
             }
-        }
-        
-
+        }      
        return 0
+    }
+    async getUserData({request,response}){
+      let token = request.input('token');
+      const decrypted = Encryption.decrypt(token);
+      return response.send(decrypted); 
     }
 }
 

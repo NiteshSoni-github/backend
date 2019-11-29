@@ -161,12 +161,17 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import HTTP from "../http";
+import router from "../router";
+import store from "../store";
 export default {
   data() {
     return {
+      data :[],
       isEditing: null,
       autoUpdate: true,
-      friends: ["Ice Hockey", "Singing"],
+      friends: [],
       isUpdating: false,
       first_name: "Akshay",
       mid_name: "Kumar",
@@ -177,7 +182,7 @@ export default {
       people: [
         { header: "Interest List" },
         { name: "Sports" },
-        { name: "Ice Hockey" },
+        { name: "Hockey" },
         { name: "Soccer" },
         { name: "Reading" },
         { name: "Singing" },
@@ -196,8 +201,37 @@ export default {
       }
     }
   },
-
+created: function() {
+    this.showUserData();
+  },
   methods: {
+    async showUserData() {
+      let token;
+      if (localStorage.getItem("token")) token = localStorage.getItem("token");
+      else token = null;
+      await axios
+        .get("http://127.0.0.1:3333/getUserData", {
+          params: {
+            token
+          }
+        })
+        .then(data => {
+          if (data.data) {
+            this.data  = data.data;
+          }
+        })
+        .catch(error => console.log(error));
+            this.first_name =this.data.f_name;
+            this.mid_name = this.data.m_name;
+            this.last_name = this.data.l_name,
+            this.email = this.data.email;
+            this.mobile = this.data.mobile;
+            this.age = this.data.age;
+            this.gender = this.data.gender;
+            var temp = this.data.interests;
+            var nameArr = temp.split(',');
+            this.friends = [...nameArr];
+    },
     remove(item) {
       const index = this.friends.indexOf(item.name);
       if (index >= 0) this.friends.splice(index, 1);
