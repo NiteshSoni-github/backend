@@ -41,8 +41,8 @@
 
         <div class="flex-grow-1"></div>
         <span class="navbuttons">
-          <router-link to="/login" exact class="loginsignup">
-            <v-btn outlined color="indigo">Login/ Signup</v-btn>
+          <router-link v-if='login' to="/login" exact class="loginsignup">
+            <v-btn v-if='login' outlined color="indigo">Login/ Signup</v-btn>
           </router-link>
         </span>
         <!-- profile pic on top right side with popup menu-->
@@ -74,7 +74,7 @@
 
             <v-card-actions>
               <div class="flex-grow-1"></div>
-              <v-btn color="primary" text @click="signout">
+              <v-btn v-if='logout' color="primary" text @click="signout">
                 <v-icon left>mdi-logout</v-icon>Sign out
               </v-btn>
               <div class="flex-grow-1"></div>
@@ -97,8 +97,8 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn> -->
  <span class="navbuttons">
-          <router-link to="/login" exact class="loginsignup">
-            <v-btn small outlined color="indigo">Login/ Signup</v-btn>
+          <router-link v-if='false' to="/login" exact class="loginsignup">
+            <v-btn v-if='false' small outlined color="indigo">Login/ Signup</v-btn>
           </router-link>
         </span>
         <v-menu offset-y bottom v-model="menu" :close-on-content-click="true">
@@ -128,7 +128,7 @@
 
             <v-card-actions>
               <div class="flex-grow-1"></div>
-              <v-btn color="primary" text @click="menu = false">
+              <v-btn v-if='logout' color="primary" text @click="menu = false">
                 <v-icon left>mdi-logout</v-icon>Sign out
               </v-btn>
               <div class="flex-grow-1"></div>
@@ -197,15 +197,15 @@
 
   <script>
 import store from "../store";
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       seen: true,
       seenmobile: true,
-     
+      loginValue: true,
       menu: false,
       menumobile: false,
-     
 
       items: [
         { title: "Profile", icon: "perm_identity" }
@@ -218,8 +218,13 @@ export default {
   computed: {
     avatarSize() {
       return `36px`;
-    }
+    },
+     ...mapState([
+        'login','logout'
+      ]),
+    
   },
+  
   created() {
     store.dispatch("login_logout");
   },
@@ -227,6 +232,7 @@ export default {
     signout() {
       this.menumobile = false;
       localStorage.removeItem("token");
+      store.dispatch("login_logout");
     }
   }
 };

@@ -80,7 +80,6 @@ class UserController {
       user.age = age ;
       user.interests = interests ;
       await user.save();
-      console.log("jai ho");
       const token =  Encryption.encrypt(user)
       return response.send(token) ;
     } 

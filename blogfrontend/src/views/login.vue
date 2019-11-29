@@ -196,6 +196,7 @@
 import axios from "axios";
 import HTTP from "../http";
 import router from "../router";
+import store from "../store";
 export default {
   data() {
     return {
@@ -265,6 +266,7 @@ export default {
           if (data.data != 0) {
             alert("login success");
             localStorage.setItem("token", data.data);
+             store.dispatch("login_logout");
             this.$router.push({ name: "showblog" });
           } else {
             alert("Email Id or password does not match");
