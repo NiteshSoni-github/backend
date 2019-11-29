@@ -3,7 +3,7 @@
     <v-container fluid class="background_image" fill-height grid-list-md text-center>
       <v-layout row wrap align-center>
         <v-flex>
-          <h1 class="display-3 font-weight-regular mt-12">Explore The Knowledge</h1>
+          <h1 class="display-3 font-weight-regular green--text">Explore The Knowledge</h1>
           <br />
           <h1 class="font-weight-thin">Just By Creating & Reading Blogs</h1>
           <br>
@@ -168,7 +168,7 @@ export default {
 <style scoped>
 .background_image {
   height: 900px;
-
+width: 100%;
   /* opacity: 0.5; */
   background: url("./../../public/background.jpg") no-repeat center center fixed;
   background-size: cover;

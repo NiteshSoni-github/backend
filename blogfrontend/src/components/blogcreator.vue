@@ -3,51 +3,48 @@ s<template>
     <v-container fluid style="background-color:#EFFDFF">
       <!-- create blog heading-->
       <v-row>
-        <v-col cols="2" class="d-none d-md-block"></v-col>
-        <v-col md="8" cols="12">
+        <v-col cols="12" lg="2" class="d-none d-md-none d-lg-block"></v-col>
+        <v-col cols="12" md="12" lg="8">
           <v-row>
             <v-col cols="12">
               <v-card-actions class="mx-n2">
-                <span class="title">CREATE BLOG</span>
-                <div class="flex-grow-1"></div>
-                <v-btn
-                  class="ml-2 black--text"
-                  @click="overlay = !overlay"
-                >
-                  <span>Draft</span>
-                  <v-icon right dark>save</v-icon>
-                </v-btn>
-
-                <v-btn
-                  color="info"
-                  class="ml-2 white--text"
-                  @click="overlay = !overlay"
-                >
-                  <span>Preview</span>
-                  <v-icon right dark>remove_red_eye</v-icon>
-                </v-btn>
-
-                <v-btn
+                <span class="title d-none d-sm-block">CREATE BLOG</span>
+                
+             
+                <v-btn class=" black--text" @click="overlay = !overlay">
+                  <span >Draft</span>
                   
-                  color="success"
-                  class="ml-2 white--text"
-                  @click="publish"
-                >
-                  <span>Publish</span>
-                  <v-icon right dark>mdi-cloud-upload</v-icon>
+                  <v-icon right dark >save</v-icon>
                 </v-btn>
-              </v-card-actions>
-            </v-col>
+<div class="flex-grow-1"></div>
+                <v-btn color="info" class="ml-2 white--text" @click="overlay = !overlay">
+                  <span>preview</span>
+                  <v-icon right dark >remove_red_eye</v-icon>
+                </v-btn>
+
+                <v-btn color="success" class="ml-2 white--text d-none d-sm-block" @click="publish">
+                  <span>Publish</span>
+                  <v-icon right dark >mdi-cloud-upload</v-icon>
+                </v-btn>
+ </v-card-actions>
+                <v-card-actions class="mx-n2">
+              
+             <v-btn color="success" block class="white--text d-flex d-sm-none" @click="publish">
+                  <span>Publish</span>
+                  <v-icon right dark >mdi-cloud-upload</v-icon>
+                </v-btn>
+                </v-card-actions>
             <v-overlay :value="overlay">
               <v-progress-circular indeterminate size="64"></v-progress-circular>
             </v-overlay>
+            </v-col>
           </v-row>
 
           <v-divider></v-divider>
 
           <!-- write title for the blog-->
           <v-row>
-            <v-col cols="5">
+            <v-col cols="12" sm="12" md="5" lg="5">
               <p>Title</p>
               <v-card style="height:54px">
                 <v-text-field
@@ -62,7 +59,7 @@ s<template>
 
             <!-- select category for blog writing-->
 
-            <v-col cols="4">
+            <v-col cols="12" sm="6" md="4" lg="4">
               <p>Category</p>
               <v-card style="height:54px">
                 <v-overflow-btn
@@ -77,10 +74,10 @@ s<template>
               </v-card>
             </v-col>
 
-            <v-col cols="3">
+            <v-col cols="12" sm="6" md="3" lg="3">
               <p>Thumbnail</p>
-              <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor>
-              <!-- <v-file-input
+              <!-- <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor> -->
+              <v-file-input
                 background-color="white"
                 v-model="files"
                 class="mb-n12"
@@ -91,15 +88,21 @@ s<template>
                 prepend-icon="mdi-camera"
                 
                 outlined
-              ></v-file-input>-->
+              ></v-file-input>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
               <p>Blog</p>
               <v-card>
-                <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" :editorOptions="editorSettings" v-model="content"></vue-editor>
-              <!--" -->
+                <vue-editor
+                  id="editor"
+                  useCustomImageHandler
+                  @image-added="handleImageAdded"
+                  :editorOptions="editorSettings"
+                  v-model="content"
+                ></vue-editor>
+                <!--" -->
               </v-card>
               <br />
               <p>Discription</p>
@@ -119,7 +122,7 @@ s<template>
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="2" class="d-none d-md-block"></v-col>
+        <v-col cols="12" lg="2" class="d-none d-md-none d-lg-block"></v-col>
       </v-row>
     </v-container>
   </v-form>
@@ -207,7 +210,7 @@ export default {
         "Wedding"
       ],
       discription: "",
-      category: "",
+      category: ""
     };
   },
   watch: {
@@ -222,7 +225,6 @@ export default {
   methods: {
     getFiles(obj) {
       this.image = obj.original.file;
-     
     },
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
@@ -232,31 +234,30 @@ export default {
       console.log(this.content);
     },
 
- 
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       // An example of using FormData
       // NOTE: Your key could be different such as:
       // formData.append('file', file)
-      let formData = new FormData(); 
-      // console.log(file);       
+      let formData = new FormData();
+      // console.log(file);
       formData.append("image1", file);
 
-       let url= "http://127.0.0.1:3333/testing"; 
-       let data= formData;
-      //  console.log(data);  
-       let options = {
+      let url = "http://127.0.0.1:3333/testing";
+      let data = formData;
+      //  console.log(data);
+      let options = {
         headers: {
           "content-type": "multipart/form-data"
         }
       };
       // console.log(data);
-     await HTTP()
+      await HTTP()
         .post(url, data, options)
         .then(result => {
           console.log(result);
-          
+
           if (result.data == 1) {
-            alert("image uploaded successfully");  
+            alert("image uploaded successfully");
           } else {
             alert("Error while uploading blog");
           }
@@ -295,7 +296,6 @@ export default {
             alert("Error while uploading blog");
           }
         });
-      
     }
   }
 };

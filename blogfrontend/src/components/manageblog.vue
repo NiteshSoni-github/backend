@@ -3,7 +3,7 @@
     <v-container fluid style="background-color:#EFFDFF">
       <v-row>
         <v-col cols="12" lg="2" class="d-none d-lg-block"></v-col>
-        <v-col cols="12" md="12" lg="8" class="d-none d-sm-block">
+        <v-col cols="12" md="12" lg="8" >
           <v-tabs slot="extension" v-model="tabs" background-color="transparent" centered>
             <v-tab v-for="n in 3" :key="n">{{ items[n] }}</v-tab>
           </v-tabs>
@@ -11,7 +11,7 @@
           <v-tabs-items v-model="tabs">
             <v-tab-item>
               <v-row>
-                <v-col cols="12" class="d-none d-sm-block">
+                <v-col cols="12" class="">
                   <v-row>
                     <v-col cols="12">
                       <v-data-table
@@ -84,10 +84,7 @@
                     :items="desserts"
                     sort-by="calories"
                     class="elevation-1"
-                    v-model="selected"
-                    :single-select="singleSelect"
-                    item-key="name"
-                    show-select
+                   
                   >
                     <template v-slot:top>
                       <v-toolbar flat color="white">
@@ -101,12 +98,8 @@
                           single-line
                           hide-details
                         ></v-text-field>
-                        <div class="flex-grow-1"></div>
-                        <router-link to="/createblog" exact>
-                          <v-btn color="primary" dark class="mb-2" v-on="on">
-                            <v-icon left>share</v-icon>Share Selected
-                          </v-btn>
-                        </router-link>
+                       
+                       
                       </v-toolbar>
                       <hr class="my-6" />
                     </template>
@@ -127,7 +120,7 @@
                 </v-col>
               </v-row>
 
-              <v-col cols="12" md="2" class="d-none d-sm-block"></v-col>
+              <v-col cols="12" md="2" class=""></v-col>
 
               <v-dialog v-model="dialog" max-width="390">
                 <v-card>
@@ -154,10 +147,8 @@
                     :items="desserts"
                     sort-by="calories"
                     class="elevation-1"
-                    v-model="selected"
-                    :single-select="singleSelect"
-                    item-key="name"
-                    show-select
+       
+                 
                   >
                     <template v-slot:top>
                       <v-toolbar flat color="white">
@@ -171,12 +162,7 @@
                           single-line
                           hide-details
                         ></v-text-field>
-                        <div class="flex-grow-1"></div>
-                        <router-link to="/createblog" exact>
-                          <v-btn color="primary" dark class="mb-2" v-on="on">
-                            <v-icon left>share</v-icon>Share Selected
-                          </v-btn>
-                        </router-link>
+                       
                       </v-toolbar>
                       <hr class="my-6" />
                     </template>
@@ -200,7 +186,7 @@
                 </v-col>
               </v-row>
 
-              <v-col cols="12" md="2" class="d-none d-sm-block"></v-col>
+              <v-col cols="12" md="2" class=""></v-col>
 
               <v-dialog v-model="dialog" max-width="390">
                 <v-card>
@@ -246,7 +232,7 @@ export default {
       {
         text: "Title",
         align: "left",
-        sortable: false,
+      
         value: "name"
       },
       { text: "category", value: "calories" },
