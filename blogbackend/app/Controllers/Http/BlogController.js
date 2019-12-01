@@ -17,10 +17,12 @@ class BlogController {
             types: ['image'],
             size: '6mb'
           })
+
           const image = new Date().getTime()+'.'+imag.subtype
           await imag.move(Helpers.publicPath('uploads/blogPicture'), {
             name: image,
           })
+          
         const decrypted = Encryption.decrypt(token)
         const authorName = decrypted.f_name
          const authorId = decrypted.id
@@ -35,6 +37,7 @@ class BlogController {
         authorId,
     }); 
     await blog.save()
+    console.log('3');
     return 1;
     };
     // get all blog data for show blog page

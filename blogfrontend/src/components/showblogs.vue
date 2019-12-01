@@ -289,6 +289,7 @@ export default {
     imageSrc: "http://127.0.0.1:3333/uploads/blogPicture/"
   }),
   created: function() {
+    store.dispatch("login_logout");
     this.showAllBlogs();
   },
   methods: {

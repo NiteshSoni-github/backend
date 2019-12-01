@@ -223,9 +223,11 @@ export default {
   },
 
   methods: {
-    getFiles(obj) {
-      this.image = obj.original.file;
-    },
+    // getFiles(obj) {
+    //   alert('this');
+    //   this.image = obj.original.file;
+    //   console.log(this.image);
+    // },
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
     },
@@ -277,14 +279,15 @@ export default {
       data.append("content", this.content);
       data.append("discription", this.discription);
       data.append("token", localStorage.getItem("token"));
-      data.append("image", this.image);
+      
+      data.append("image", this.files);
       let url = "http://127.0.0.1:3333/publishblog";
       let options = {
         headers: {
           "content-type": "multipart/form-data"
         }
       };
-      console.log(data);
+    //  console.log(data);
       await HTTP()
         .post(url, data, options)
         .then(data => {

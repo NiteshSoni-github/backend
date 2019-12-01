@@ -49,7 +49,7 @@
         <v-menu offset-y bottom v-model="menumobile" :close-on-content-click="true">
           <!-- :nudge-width="auto" -->
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" class>
+            <v-btn v-if='logout' icon v-on="on" class>
               <v-avatar :size="avatarSize">
                 <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="avatar" />
               </v-avatar>
@@ -74,7 +74,7 @@
 
             <v-card-actions>
               <div class="flex-grow-1"></div>
-              <v-btn v-if='logout' color="primary" text @click="signout">
+              <v-btn  color="primary" text @click="signout">
                 <v-icon left>mdi-logout</v-icon>Sign out
               </v-btn>
               <div class="flex-grow-1"></div>
@@ -97,21 +97,21 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn> -->
  <span class="navbuttons">
-          <router-link v-if='false' to="/login" exact class="loginsignup">
-            <v-btn v-if='false' small outlined color="indigo">Login/ Signup</v-btn>
+          <router-link v-if='login' to="/login" exact class="loginsignup">
+            <v-btn v-if='login' small outlined color="indigo">Login/ Signup</v-btn>
           </router-link>
         </span>
         <v-menu offset-y bottom v-model="menu" :close-on-content-click="true">
           <!--   :nudge-width="auto" -->
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" class>
+            <v-btn v-if='logout' icon v-on="on" class>
               <v-avatar :size="avatarSize">
-                <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="avatar" />
+                <img  src="https://cdn.vuetifyjs.com/images/john.jpg" alt="avatar" />
               </v-avatar>
             </v-btn>
           </template>
 
-          <v-card>
+          <v-card >
             <v-divider></v-divider>
 
             <v-list dense nav class="ml-2 mt-2">
@@ -128,7 +128,7 @@
 
             <v-card-actions>
               <div class="flex-grow-1"></div>
-              <v-btn v-if='logout' color="primary" text @click="menu = false">
+              <v-btn  color="primary" text @click="menu = false">
                 <v-icon left>mdi-logout</v-icon>Sign out
               </v-btn>
               <div class="flex-grow-1"></div>

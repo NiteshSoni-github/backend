@@ -10,7 +10,7 @@ class BlogSchema extends Schema {
       table.string('title', 254).notNullable()
       table.string('category', 254).notNullable()
       table.string('image', 254)
-      table.string('content', 10000)
+      table.text('content')
       table.string('discription', 1000)
       table.string('authorName', 254)
       table.string('authorId', 254)
