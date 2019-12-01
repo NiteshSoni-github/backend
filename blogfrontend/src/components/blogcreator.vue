@@ -8,14 +8,12 @@ s<template>
           <v-row>
             <v-col cols="12">
               <v-card-actions class="mx-n2">
-                <span class="title d-none d-sm-block">CREATE BLOG</span>
-                
-             
-                <v-btn class=" black--text" @click="overlay = !overlay">
-                  <span >Draft</span>
-                  
+                <span class="title d-none d-sm-block">CREATE BLOG</span>                   
+                <v-btn class=" black--text" @click="draft">
+                  <span>Draft</span>                
                   <v-icon right dark >save</v-icon>
                 </v-btn>
+              
 <div class="flex-grow-1"></div>
                 <v-btn color="info" class="ml-2 white--text" @click="overlay = !overlay">
                   <span>preview</span>
@@ -287,16 +285,41 @@ export default {
           "content-type": "multipart/form-data"
         }
       };
-    //  console.log(data);
       await HTTP()
         .post(url, data, options)
         .then(data => {
-          // console.log(data);
           if (data.data == 1) {
             alert("Blog uploaded successfully");
             this.$router.push({ name: "showblog" });
           } else {
             alert("Error while uploading blog");
+          }
+        });
+    },
+// -------------------------------------DRAFT BLOG --------------------------------
+    async draft(){
+    // this.overlay = !this.overlay
+      let data = new FormData();
+      data.append("title", this.title);
+      data.append("category", this.category);
+      data.append("content", this.content);
+      data.append("discription", this.discription);
+      data.append("token", localStorage.getItem("token"));      
+      data.append("image", this.files);
+      let url = "http://127.0.0.1:3333/draftblog";
+      let options = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      await HTTP()
+        .post(url, data, options)
+        .then(data => {
+          if (data.data == 1) {
+            alert("Blog drafted successfully");
+            this.$router.push({ name: "manageblog" });
+          } else {
+            alert("Error while draft blog");
           }
         });
     }

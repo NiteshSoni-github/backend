@@ -1,5 +1,6 @@
 'use strict'
 const Blog = use('App/Models/Blog')
+const DraftBlog = use('App/Models/Draftblog')
 const Hash = use('Hash')
 const Encryption = use('Encryption')
 const Helpers = use('Helpers')
@@ -23,22 +24,21 @@ class BlogController {
             name: image,
           })
           
-        const decrypted = Encryption.decrypt(token)
-        const authorName = decrypted.f_name
-         const authorId = decrypted.id
+            const decrypted = Encryption.decrypt(token)
+            const authorName = decrypted.f_name
+            const authorId = decrypted.id
         
-    const blog = await Blog.create({
-        title,
-        category,
-        image,
-        content,
-        discription,
-        authorName,
-        authorId,
-    }); 
-    await blog.save()
-    console.log('3');
-    return 1;
+              const blog = await Blog.create({
+                  title,
+                  category,
+                  image,
+                  content,
+                  discription,
+                  authorName,
+                  authorId,
+              }); 
+              await blog.save()
+              return 1;
     };
     // get all blog data for show blog page
 
@@ -49,26 +49,59 @@ class BlogController {
     return response.send(temp);  
   }
   async getParticularBlogData({request,response}){
-    console.log(request.input('id'));
     let post = await Blog.query().where('id',request.input('id')).first()
     return response.send(post.toJSON())
   }
+  async draftblog({request,response}){
+            let {
+              title,
+              category,
+              content,
+              discription,
+              token
+                } = request.all();
+              const imag = request.file('image', {
+                  types: ['image'],
+                  size: '6mb'
+                })
+
+              const image = new Date().getTime()+'.'+imag.subtype
+              await imag.move(Helpers.publicPath('uploads/draftPicture'), {
+                name: image,
+              })              
+              const decrypted = Encryption.decrypt(token)
+              const authorId = decrypted.id  
+              const blog = await DraftBlog.create({
+                  title,
+                  category,
+                  image,
+                  content,
+                  discription,
+                  authorId,
+              }); 
+              await blog.save()
+              return 1;  
+  }
  
-  async testing({request,response}){
 
-  const imag = request.file('image', {
-      types: ['image'],
-      size: '6mb'
-    })
-    console.log(imag.subtype);
-    // const image = new Date().getTime()+'.'+imag.subtype
-    // // await imag.move(Helpers.publicPath('uploads/testing'), {
-    // //   name: image,
-    // // })
-  
-return 1;
 
-};
+
+  // ------------- TESTING COMPONENT ------//
+    async testing({request,response}){
+
+    const imag = request.file('image', {
+        types: ['image'],
+        size: '6mb'
+      })
+      console.log(imag.subtype);
+      // const image = new Date().getTime()+'.'+imag.subtype
+      // // await imag.move(Helpers.publicPath('uploads/testing'), {
+      // //   name: image,
+      // // })
+    
+  return 1;
+
+  };
 }
 
 module.exports = BlogController
