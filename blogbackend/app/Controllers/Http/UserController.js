@@ -6,6 +6,7 @@ const Encryption = use('Encryption')
 class UserController {
     async register({request,response})
     {      
+      alert("hi");
         const rules = {
             email: 'unique:users',
             mobile: 'unique:users'
