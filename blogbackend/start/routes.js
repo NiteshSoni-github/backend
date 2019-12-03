@@ -28,3 +28,4 @@ Route.post('/updateProfile','UserController.updateProfile')
 Route.post('/draftblog','BlogController.draftblog')
 Route.get('/getUserBlogs','BlogController.getUserBlogs');
 Route.delete('/deletedraft','BlogController.deletedraft');
+Route.delete('/deletePublished','BlogController.deletePublished');

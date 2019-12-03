@@ -49,7 +49,7 @@ class BlogController {
     return response.send(temp);  
   }
   async getParticularBlogData({request,response}){
-    let post = await Blog.query().where('id',request.input('id')).first()
+    let post = await Blog.query().where('id',request.input('id')).first();
     return response.send(post.toJSON())
   }
   async draftblog({request,response}){
@@ -108,9 +108,23 @@ class BlogController {
               }
             });
            await post.delete();
-            console.log(id);
           }
 
+  // -------------------------- DELETE PUBLISHED BLOG -------------------------//
+            async deletePublished({request}){
+              let id = request.input('id');
+              let post = await Blog.query().where('id',id).first() ;
+              const temp = post.toJSON(); 
+              fs.unlink("./public/uploads/blogPicture/"+temp.image, (err) => {
+                if (err) {
+                    console.log("failed to delete local image:"+err);
+                } else {
+                    console.log('successfully deleted local image');                                
+                }
+              });
+            await post.delete(); 
+
+            }
   // ------------- TESTING COMPONENT ------//
     async testing({request,response}){
 

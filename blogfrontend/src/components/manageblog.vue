@@ -107,8 +107,7 @@
                       <router-link to="/readblog" exact>
                         <v-icon small class="mr-2">remove_red_eye</v-icon>
                       </router-link>
-
-                      <v-icon small @click.stop="dialog = true">delete</v-icon>
+                      <v-icon small @click.stop="dialog=true">delete</v-icon>
                     </template>
                     <template v-slot:no-data>
                       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -174,7 +173,7 @@
                         <v-icon small class="mr-2">edit</v-icon>
                       </router-link>
 
-                      <v-icon small @click.stop="dialog = true">delete</v-icon>
+                      <v-icon small @click.stop="getPublishBlogId(item.id)">delete</v-icon>
                     </template>
                     <template v-slot:no-data>
                       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -199,7 +198,7 @@
 
                     <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
 
-                    <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+                    <v-btn color="green darken-1" text @click="deletePublishBlog(deletePublishBlogId)">Agree</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -227,6 +226,7 @@ import router from "../router";
 export default {
   data: () => ({
     deletedraftid:null,
+    deletePublishBlogId:null,
     data:[],
     draftData:[],
     publishedData:[],
@@ -306,26 +306,6 @@ export default {
           statusfavourite: "Favourite",
           fat: 6.0,
           carbs: 24,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 9.0,
-          carbs: 37,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Eclair",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 16.0,
-          carbs: 23,
           protein: "07/01/2019"
         },
      
@@ -415,7 +395,40 @@ export default {
 
     },
 
-    //- -----------------//
+    //------- GET PUBLISHED BLOG ID FOR DELETEION  ---- //
+    getPublishBlogId(item){
+      this.dialog = true;
+      this.deletePublishBlogId=item;
+
+    },
+   // ---------- DELETE PUBLISHED BLOG -------------------- //
+   async deletePublishBlog(item){
+      let i;
+      for(i=0;i<this.publishedData.length;i++)
+      {
+        if(this.publishedData[i].id==item)
+        break;
+      }
+      this.publishedData.splice(i,1);
+      this.dialog = false;
+      let URL = 'http://127.0.0.1:3333/deletePublished'
+      await axios.delete(
+        URL,
+        {
+        data:{
+          id:item
+        }}
+      );
+
+    },
+
+
+
+
+
+
+
+    //- -----------------------------------------------------------------------------------//
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
