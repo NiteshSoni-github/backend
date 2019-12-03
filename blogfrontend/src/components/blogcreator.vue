@@ -1,4 +1,4 @@
-s<template>
+<template>
   <v-form method="POST" enctype="multipart/form-data">
     <v-container fluid style="background-color:#EFFDFF">
       <!-- create blog heading-->
