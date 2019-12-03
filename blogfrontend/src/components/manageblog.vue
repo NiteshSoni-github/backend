@@ -46,7 +46,7 @@
                             <v-icon small class="mr-2">edit</v-icon>
                           </router-link> -->
                             <v-icon @click='editDraft(item)' small class="mr-2">edit</v-icon>
-                          <v-icon small @click.stop="dialog = true">delete</v-icon>
+                          <v-icon small @click.stop="deleteDraftBlog(item.id)">delete</v-icon>
                         </template>
                         <template v-slot:no-data>
                           <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -69,7 +69,7 @@
 
                       <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
 
-                      <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+                      <v-btn color="green darken-1" text @click="deleteDraft(deletedraftid)">Agree</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -226,6 +226,7 @@ import HTTP from "../http";
 import router from "../router";
 export default {
   data: () => ({
+    deletedraftid:null,
     data:[],
     draftData:[],
     publishedData:[],
@@ -332,7 +333,7 @@ export default {
     },
     // -----------------   GET USER BLOGS  -------- //
     async getUserBlogs(){     
-
+    
       let token = localStorage.getItem('token');
        await axios
         .get("http://127.0.0.1:3333/getUserblogs", {
@@ -383,10 +384,38 @@ export default {
         })
         
     }, 
+    // ----------- edit draft blog ----------------------//
     editDraft(obj){
-      localStorage.setItem('blog',obj);
+     // localStorage.setItem('blog',obj);
       this.$router.push({ name: "createblog" });
     } ,
+    // -------------get delete draft blog id-------------------//
+    deleteDraftBlog(item){
+      this.dialog = true;
+      this.deletedraftid=item;
+    },
+    //----------- delete draft ------------------------//
+    async deleteDraft(item){
+      let i;
+      for(i=0;i<this.draftData.length;i++)
+      {
+        if(this.draftData[i].id==item)
+        break;
+      }
+      this.draftData.splice(i,1);
+      this.dialog = false;
+      let URL = 'http://127.0.0.1:3333/deletedraft'
+      await axios.delete(
+        URL,
+        {
+        data:{
+          id:item
+        }}
+      );
+
+    },
+
+    //- -----------------//
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
