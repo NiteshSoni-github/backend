@@ -266,7 +266,6 @@ export default {
           if (data.data != 0) {
             localStorage.setItem("token", data.data);
             store.dispatch("login_logout");
-location.reload();  
             this.$router.push({ name: "showblog" });
           } else {
             alert("Email Id or password does not match");

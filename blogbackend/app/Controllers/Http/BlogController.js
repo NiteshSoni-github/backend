@@ -82,7 +82,18 @@ class BlogController {
               await blog.save()
               return 1;  
   }
- 
+          async getUserBlogs({request,response})
+          {
+            let token = request.input('token');
+            const decrypted = Encryption.decrypt(token);
+            let id =  decrypted.id;
+           const draft = await DraftBlog.query().where('authorId',id).fetch();
+            const publish = await Blog.query().where('authorId',id).fetch();
+            let d1 = draft.toJSON();
+            let d2 = publish.toJSON();
+            let d = d1.concat(d2);
+            return response.send(d);
+          }
 
 
 

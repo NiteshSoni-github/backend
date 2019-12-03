@@ -16,7 +16,7 @@
                     <v-col cols="12">
                       <v-data-table
                         :headers="headers"
-                        :items="desserts"
+                        :items="draftData"
                         sort-by="calories"
                         class="elevation-1"
                       >
@@ -42,10 +42,10 @@
                           <hr class="my-6" />
                         </template>
                         <template v-slot:item.action="{ item }">
-                          <router-link to="/editblog" exact>
+                          <!-- <router-link to="/editblog" exact>
                             <v-icon small class="mr-2">edit</v-icon>
-                          </router-link>
-
+                          </router-link> -->
+                            <v-icon @click='editDraft(item)' small class="mr-2">edit</v-icon>
                           <v-icon small @click.stop="dialog = true">delete</v-icon>
                         </template>
                         <template v-slot:no-data>
@@ -144,7 +144,7 @@
                 <v-col cols="12">
                   <v-data-table
                     :headers="headers"
-                    :items="desserts"
+                    :items="publishedData"
                     sort-by="calories"
                     class="elevation-1"
        
@@ -220,8 +220,15 @@
 </template>
 
 <script>
+
+import axios from "axios";
+import HTTP from "../http";
+import router from "../router";
 export default {
   data: () => ({
+    data:[],
+    draftData:[],
+    publishedData:[],
     tabs: null,
     items: ["ss", "Draft", "My Favourite", "Published"],
     search: null,
@@ -241,6 +248,7 @@ export default {
       { text: "Actions", value: "action", sortable: false }
     ],
     desserts: [],
+    dessert : [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -271,11 +279,23 @@ export default {
   },
 
   created() {
+    this.getUserBlogs();
     this.initialize();
   },
 
   methods: {
     initialize() {
+      this.dessert = [
+        {
+          name: "Frozen Yogurt",
+          calories: "News",
+          statusdraft: "Draft",
+          statuspublished: "Published",
+          statusfavourite: "Favourite",
+          fat: 6.0,
+          carbs: 24,
+          protein: "07/01/2019"
+        }, ] ;
       this.desserts = [
         {
           name: "Frozen Yogurt",
@@ -307,79 +327,66 @@ export default {
           carbs: 23,
           protein: "07/01/2019"
         },
-        {
-          name: "Cupcake",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 3.7,
-          carbs: 67,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Gingerbread",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 16.0,
-          carbs: 49,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Jelly bean",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 0.0,
-          carbs: 94,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Lollipop",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 0.2,
-          carbs: 98,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Honeycomb",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 3.2,
-          carbs: 87,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Donut",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 25.0,
-          carbs: 51,
-          protein: "07/01/2019"
-        },
-        {
-          name: "KitKat",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 26.0,
-          carbs: 65,
-          protein: "07/01/2019"
-        }
+     
       ];
     },
+    // -----------------   GET USER BLOGS  -------- //
+    async getUserBlogs(){     
 
+      let token = localStorage.getItem('token');
+       await axios
+        .get("http://127.0.0.1:3333/getUserblogs", {
+          params: {
+            token
+          }
+        })
+        .then(data=>{
+         this.data = [...data.data];
+         let len = this.data.length ;
+         for(let i=0;i<len;i++)
+         {
+           if(!this.data[i].authorName)
+           {
+            let name = this.data[i].title ;
+           let calories = this.data[i].category ;
+           let statusdraft = "Draft";            
+          let fat = 25.0 ;
+          let carbs = 51 ;
+          let temp  = this.data[i].updated_at ;
+          temp  = temp.split(" ",1);
+          let protein = temp ;
+          let content = this.data[i].content ;
+          let authorId = this.data[i].authorId ;
+          let  id = this.data[i].id;
+          let image = this.data[i].id;
+          this.draftData.push({'name':name,'calories':calories,'statusdraft':statusdraft,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image})
+           }
+           else{
+            let name = this.data[i].title ;
+            let calories = this.data[i].category ;
+            let statuspublished = "Published";            
+            let fat = 25.0 ;
+            let carbs = 51 ;
+            let temp  = this.data[i].updated_at ;
+             temp  = temp.split(" ",1);
+            let protein = temp ;
+            let content = this.data[i].content ;
+            let authorId = this.data[i].authorId ;
+            let  id = this.data[i].id;
+            let image = this.data[i].id;
+            this.publishedData.push({'name':name,'calories':calories,'statuspublished':statuspublished,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image})
+
+           }
+         }
+        }).catch(err=>{
+          console.log(err)
+        })
+        
+    }, 
+    editDraft(obj){
+      localStorage.setItem('blog',obj);
+      this.$router.push({ name: "createblog" });
+    } ,
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
