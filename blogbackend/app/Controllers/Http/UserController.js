@@ -5,33 +5,36 @@ const Hash = use('Hash')
 const Encryption = use('Encryption')
 class UserController {
     async register({request,response})
-    {      
+    {    
+      let {
+        f_name,
+        m_name,
+        l_name,
+        email,
+        passwords,
+        mobile,
+        age,
+        gender,
+        interests
+    } = request.all();
+    
         const rules = {
             email: 'unique:users',
             mobile: 'unique:users'
           }    
+          
           const validation = await validate(request.all(), rules)
         
           if (validation.fails()) {
             return 0;
           }
-        let {
-            f_name,
-            m_name,
-            l_name,
-            email,
-            password,
-            mobile,
-            age,
-            gender,
-            interests
-        } = request.all();  
+          
     const user = await User.create({
             f_name,
             m_name,
             l_name,
             email,
-            password,
+            passwords,
             mobile,
             age,
             gender,
@@ -45,7 +48,7 @@ class UserController {
         const user = await User.query().where('email',email).first()
         if(user)
         { 
-            const passwordVerified  = await Hash.verify(password,user.password )
+              const passwordVerified  = await Hash.verify(password,user.password )
             if(passwordVerified)
             { 
             const token =  Encryption.encrypt(user)
@@ -53,6 +56,7 @@ class UserController {
              return(token)   
             }
         }      
+        
        return 0
     }
     async getUserData({request,response}){

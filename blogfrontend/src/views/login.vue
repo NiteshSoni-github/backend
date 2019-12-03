@@ -122,16 +122,17 @@
                           </v-col>
                           <v-col cols="12">
                             <v-text-field
-                              v-model="password"
+                              v-model="passwords"
                               label="Password*"
                               required
                               hint="For example, Xyz122@#"
                               :append-icon="show2 ? 'visibility' : 'visibility_off'"
-                              :rules="[rules.required, rules.min]"
+                            
                               :type="show2 ? 'text' : 'password'"
                               name="input-10-2"
                               @click:append="show2 = !show2"
                             ></v-text-field>
+                              <!-- :rules="[rules.required, rules.min]" -->
                           </v-col>
                           <v-col cols="12">
                             <v-text-field
@@ -204,7 +205,7 @@ export default {
       dialog1: false,
       login_email: "",
       login_password: "",
-      password: "",
+      passwords: "",
       email: "",
       emailRules: [
         // v => !!v || "E-mail is required",
@@ -236,24 +237,27 @@ export default {
       data.append("m_name", this.m_name);
       data.append("l_name", this.l_name);
       data.append("email", this.email);
-      data.append("password", this.password);
+      data.append("passwords", this.passwords);
       data.append("mobile", this.mobile);
       data.append("age", this.age);
       data.append("gender", this.gender);
       data.append("interests", this.interests);
       let url = "http://127.0.0.1:3333/register";
       await HTTP()
-        .post(url, data)
+      .post(url, data)
         .then(data => {
           if (data.data == 1) {
             this.dialog = false;
             this.login_email = this.email;
-            this.login_password = this.password;
+            this.login_password = this.passwords;
           } else {
             alert("Email Id or Phone Number already register");
             this.dialog = true;
           }
-        });
+        })
+        .catch(error => {
+    console.log(error.response)
+});
     },
     async login() {
       let data = new FormData();

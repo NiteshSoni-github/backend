@@ -1,4 +1,4 @@
-s<template>
+<template>
   <v-form method="POST" enctype="multipart/form-data">
     <v-container fluid style="background-color:#EFFDFF">
       <!-- create blog heading-->
@@ -9,12 +9,14 @@ s<template>
             <v-col cols="12">
               <v-card-actions class="mx-n2">
                 <span class="title d-none d-sm-block">CREATE BLOG</span>                   
+                
+              
+<div class="flex-grow-1 d-none d-sm-block"></div>
                 <v-btn class=" black--text" @click="draft">
                   <span>Draft</span>                
                   <v-icon right dark >save</v-icon>
                 </v-btn>
-              
-<div class="flex-grow-1"></div>
+                <div class="flex-grow-1 d-flex d-sm-none"></div>
                 <v-btn color="info" class="ml-2 white--text" @click="overlay = !overlay">
                   <span>preview</span>
                   <v-icon right dark >remove_red_eye</v-icon>
