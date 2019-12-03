@@ -221,7 +221,9 @@ export default {
         }, 3000);
     }
   },
-
+   created:function(){
+     this.setData();
+  },
   methods: {
     // getFiles(obj) {
     //   alert('this');
@@ -294,7 +296,7 @@ export default {
             alert("Blog uploaded successfully");
             this.$router.push({ name: "showblog" });
           } else {
-            alert("Error while uploading blog");
+            alert("Error while uploading blog"); 
           }
         });
     },
@@ -324,6 +326,12 @@ export default {
             alert("Error while draft blog");
           }
         });
+    },
+    setData(){
+      if(localStorage.getItem('data'))
+      {
+        alert('g');
+      }
     }
   }
 };
