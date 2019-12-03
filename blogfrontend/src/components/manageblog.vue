@@ -270,7 +270,8 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    }
+    },
+ 
   },
 
   watch: {
@@ -340,7 +341,8 @@ export default {
           let authorId = this.data[i].authorId ;
           let  id = this.data[i].id;
           let image = this.data[i].id;
-          this.draftData.push({'name':name,'calories':calories,'statusdraft':statusdraft,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image})
+          let discription = this.data[i].discription ;
+          this.draftData.push({'name':name,'calories':calories,'statusdraft':statusdraft,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image,'discription':discription})
            }
            else{
             let name = this.data[i].title ;
@@ -355,7 +357,8 @@ export default {
             let authorId = this.data[i].authorId ;
             let  id = this.data[i].id;
             let image = this.data[i].id;
-            this.publishedData.push({'name':name,'calories':calories,'statuspublished':statuspublished,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image})
+            let discription = this.data[i].discription ;
+            this.publishedData.push({'name':name,'calories':calories,'statuspublished':statuspublished,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image,'discription':discription})
 
            }
          }
@@ -366,8 +369,8 @@ export default {
     }, 
     // ----------- edit draft blog ----------------------//
     editDraft(obj){
-     // localStorage.setItem('blog',obj);
-      this.$router.push({ name: "createblog" });
+      localStorage.setItem('error', JSON.stringify(obj))
+      this.$router.push({ name: "editblog" });
     } ,
     // -------------get delete draft blog id-------------------//
     deleteDraftBlog(item){

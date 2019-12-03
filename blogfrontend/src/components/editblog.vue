@@ -11,7 +11,7 @@ s<template>
                 <span class="title d-none d-sm-block">EDIT YOUR BLOG</span>                   
                 
               
-<div class="flex-grow-1 d-none d-sm-block"></div>
+      <div class="flex-grow-1 d-none d-sm-block"></div>
                 <v-btn class=" black--text" @click="draft">
                   <span>Draft</span>                
                   <v-icon right dark >save</v-icon>
@@ -26,7 +26,7 @@ s<template>
                   <span>Publish</span>
                   <v-icon right dark >mdi-cloud-upload</v-icon>
                 </v-btn>
- </v-card-actions>
+        </v-card-actions>
                 <v-card-actions class="mx-n2">
               
              <v-btn color="success" block class="white--text d-flex d-sm-none" @click="publish">
@@ -222,6 +222,24 @@ export default {
     }
   },
 
+  
+created() {
+  if(!localStorage.getItem('token'))
+  {
+    this.$router.push({ name: "showblog" });
+  }
+  else{
+    if(localStorage.getItem('error'))
+    {
+      let blog = JSON.parse(localStorage.getItem('error'));
+      this.title = blog.name;
+      this.category = blog.calories;
+      this.content = blog.content;
+      this.discription = blog.discription;
+      localStorage.removeItem('error');
+    }
+  }
+},
   methods: {
     // getFiles(obj) {
     //   alert('this');
