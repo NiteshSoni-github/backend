@@ -1,3 +1,9 @@
+stages:
+  - dependencies
+  - build
+  - deploy
+
+
 'UI dependencies':
   image: node:8.15-alpine
   stage: dependencies
@@ -42,4 +48,3 @@
     changes:
       - frontend/**/*
       - .gitlab-ci.yml
-      
