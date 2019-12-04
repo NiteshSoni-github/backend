@@ -6,3 +6,4 @@ stages:
 include:
   - '/frontend/.gitlab-ci.yml'
   - '/api/.gitlab-ci.yml'
+  
