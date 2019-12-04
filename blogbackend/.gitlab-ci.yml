@@ -6,7 +6,7 @@
     - apt-get install rubygems ruby-dev -y
     - gem install dpl
     - cd api
-    - dpl --provider=heroku --app=back-balveer --api-key=$dc50f579-962e-4060-a81a-81130e766f8b --skip_cleanup
+    - dpl --provider=heroku --app=back-balveer --api-key=dc50f579-962e-4060-a81a-81130e766f8b --skip_cleanup
   only:
     changes:
       - api/**/*
