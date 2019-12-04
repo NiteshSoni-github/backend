@@ -279,7 +279,7 @@
 import axios from "axios";
 import HTTP from "../http";
 import router from "../router";
-import store from "../store";
+import store from "../store"
 export default {
   data: () => ({
     data: [],
@@ -289,9 +289,9 @@ export default {
     imageSrc: "http://127.0.0.1:3333/uploads/blogPicture/"
   }),
   created: function() {
-    store.dispatch("login_logout");
     this.showAllBlogs();
   },
+  
   methods: {
     async showAllBlogs() {
       let token;

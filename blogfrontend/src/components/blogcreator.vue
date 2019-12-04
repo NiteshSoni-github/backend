@@ -219,6 +219,8 @@ export default {
     }
   },
    created:function(){
+     if(!localStorage.getItem('token'))
+    this.$router.push({ name: "login" });
      this.setData();
   },
   methods: {

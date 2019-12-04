@@ -5,7 +5,7 @@ const Hash = use('Hash')
 const Encryption = use('Encryption')
 const Helpers = use('Helpers')
 const fs = require('fs');
-var gm = require('gm').subClass({imageMagick: true}); // required for image compression
+var gm = require('gm').subClass({imageMagick: true}); // graphics magic required for image compression
 class BlogController {
     async publishblog({request,response}){
         let {
