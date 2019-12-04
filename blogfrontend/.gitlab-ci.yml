@@ -1,0 +1,44 @@
+'UI dependencies':
+  image: node:8.15-alpine
+  stage: dependencies
+  only:
+    changes:
+      - frontend/**/*
+      - .gitlab-ci.yml
+  artifacts:
+    paths:
+      - frontend/node_modules/
+  dependencies: []
+  script:
+    - cd frontend
+    - npm install
+
+'UI build':
+  image: node:8.15-alpine
+  stage: build
+  only:
+    changes:
+      - frontend/**/*
+      - .gitlab-ci.yml
+  artifacts:
+    paths:
+      - frontend/dist/
+  dependencies:
+    - 'UI dependencies'
+  script:
+    - cd frontend
+    - npm run build
+
+'UI deploy':
+  stage: deploy
+  image: "ruby:2.5"
+  script:
+    - apt-get update -qy
+    - apt-get install rubygems ruby-dev -y
+    - gem install dpl
+    - cd frontend
+    - dpl --provider=heroku --app=front-balveer --api-key=$dc50f579-962e-4060-a81a-81130e766f8b --skip_cleanup
+  only:
+    changes:
+      - frontend/**/*
+      - .gitlab-ci.yml
