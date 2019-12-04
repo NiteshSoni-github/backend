@@ -138,13 +138,11 @@ Quill.register("modules/imageResize", ImageResize);
 
 import axios from "axios";
 import HTTP from "../http";
-import imageCompressor from "vue-image-compressor";
 import router from "../router";
 
 export default {
   components: {
     VueEditor,
-    imageCompressor
   },
   data() {
     return {
@@ -241,11 +239,8 @@ created() {
   }
 },
   methods: {
-    // getFiles(obj) {
-    //   alert('this');
-    //   this.image = obj.original.file;
-    //   console.log(this.image);
-    // },
+
+
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
     },
