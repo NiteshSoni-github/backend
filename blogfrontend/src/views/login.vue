@@ -230,6 +230,9 @@ export default {
       d: ""
     };
   },
+   created() {
+    store.dispatch("login_logout");
+  },
   methods: {
     async signup() {
       let data = new FormData();
@@ -269,8 +272,9 @@ export default {
         .then(data => {
           if (data.data != 0) {
             localStorage.setItem("token", data.data);
-            store.dispatch("login_logout");
-            this.$router.push({ name: "showblog" });
+              store.dispatch("login_logout"); 
+              window.location.reload();             
+           //this.$router.push({ name: "manageblog" });
           } else {
             alert("Email Id or password does not match");
           }

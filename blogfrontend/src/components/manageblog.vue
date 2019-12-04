@@ -283,6 +283,8 @@ export default {
   created() {
     this.getUserBlogs();
     this.initialize();
+    if(!localStorage.getItem('token'))
+    this.$router.push({ name: "login" });
   },
 
   methods: {

@@ -233,6 +233,7 @@ export default {
       this.menumobile = false;
       localStorage.removeItem("token");
       store.dispatch("login_logout");
+      location.reload();
     }
   }
 };
