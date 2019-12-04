@@ -278,9 +278,6 @@ export default {
 // ------------- publish blog --------//
     async publish() {
       this.overlay = !this.overlay;
-      console.log('g');
-      console.log(this.files);
-      console.log('g');
       let data = new FormData();
       data.append("title", this.title);
       data.append("category", this.category);
@@ -308,7 +305,7 @@ export default {
     },
 // -------------------------------------DRAFT BLOG --------------------------------
     async draft(){
-    // this.overlay = !this.overlay
+    this.overlay = !this.overlay
    
       let data = new FormData();
       data.append("title", this.title);
@@ -327,7 +324,7 @@ export default {
         .post(url, data, options)
         .then(data => {
           if (data.data == 1) {
-            alert("Blog drafted successfully");
+           // alert("Blog drafted successfully");
             this.$router.push({ name: "manageblog" });
           } else {
             alert("Error while draft blog");

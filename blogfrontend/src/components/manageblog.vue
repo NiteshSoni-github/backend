@@ -342,7 +342,7 @@ export default {
           let content = this.data[i].content ;
           let authorId = this.data[i].authorId ;
           let  id = this.data[i].id;
-          let image = this.data[i].id;
+          let image = this.data[i].image;
           let discription = this.data[i].discription ;
           this.draftData.push({'name':name,'calories':calories,'statusdraft':statusdraft,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image,'discription':discription})
            }
@@ -358,7 +358,7 @@ export default {
             let content = this.data[i].content ;
             let authorId = this.data[i].authorId ;
             let  id = this.data[i].id;
-            let image = this.data[i].id;
+            let image = this.data[i].image;
             let discription = this.data[i].discription ;
             this.publishedData.push({'name':name,'calories':calories,'statuspublished':statuspublished,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image,'discription':discription})
 

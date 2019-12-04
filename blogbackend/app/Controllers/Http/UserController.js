@@ -17,18 +17,15 @@ class UserController {
         gender,
         interests
     } = request.all();
-    
         const rules = {
             email: 'unique:users',
             mobile: 'unique:users'
           }    
           
           const validation = await validate(request.all(), rules)
-        
           if (validation.fails()) {
             return 0;
           }
-          
     const user = await User.create({
             f_name,
             m_name,
@@ -65,6 +62,7 @@ class UserController {
       return response.send(decrypted); 
     }
     async updateProfile({request,response}){
+      
         let {
           id,
           f_name,
