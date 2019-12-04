@@ -76,17 +76,17 @@
 
             <v-col cols="12" sm="6" md="3" lg="3">
               <p>Thumbnail</p>
+              <img width='200' height='100' v-bind:src="imagePreview" v-show="showPreview"/>
               <v-file-input
                 background-color="white"
                 v-model="files"
                 class="mb-n12"
                 color="deep-purple accent-4"
-                :rules="rules"
                 accept="image/png, image/jpeg, image/bmp"
                 placeholder="Pick an image"
-                prepend-icon="mdi-camera"
-                
+                prepend-icon="mdi-camera"                
                 outlined
+                v-on:change="handleFileUpload()"
               ></v-file-input>
             </v-col>
           </v-row>
@@ -152,6 +152,9 @@ export default {
           imageResize: {}
         }
       },
+      
+      showPreview: false,
+      imagePreview: '',
       image: "",
       scale: 100,
       quality: 50,
@@ -207,7 +210,7 @@ export default {
         "Wedding"
       ],
       discription: "",
-      category: ""
+      category: "",
     };
   },
   watch: {
@@ -224,7 +227,11 @@ export default {
      this.setData();
   },
   methods: {
- 
+    handleFileUpload()
+    { 
+      this.showPreview = true;     
+     this.imagePreview= URL.createObjectURL(this.files);   
+    },
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
     },
@@ -268,8 +275,12 @@ export default {
           console.log(err);
         });
     },
+// ------------- publish blog --------//
     async publish() {
       this.overlay = !this.overlay;
+      console.log('g');
+      console.log(this.files);
+      console.log('g');
       let data = new FormData();
       data.append("title", this.title);
       data.append("category", this.category);
@@ -288,7 +299,7 @@ export default {
         .post(url, data, options)
         .then(data => {
           if (data.data == 1) {
-            alert("Blog uploaded successfully");
+          //  alert("Blog uploaded successfully");
             this.$router.push({ name: "showblog" });
           } else {
             alert("Error while uploading blog"); 
@@ -298,6 +309,7 @@ export default {
 // -------------------------------------DRAFT BLOG --------------------------------
     async draft(){
     // this.overlay = !this.overlay
+   
       let data = new FormData();
       data.append("title", this.title);
       data.append("category", this.category);
