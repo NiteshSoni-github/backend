@@ -11,7 +11,7 @@ class UserController {
         m_name,
         l_name,
         email,
-        passwords,
+        password,
         mobile,
         age,
         gender,
@@ -34,7 +34,7 @@ class UserController {
             m_name,
             l_name,
             email,
-            passwords,
+            password,
             mobile,
             age,
             gender,
@@ -48,8 +48,8 @@ class UserController {
         const user = await User.query().where('email',email).first()
         if(user)
         { 
-              // const passwordVerified  = await Hash.verify(password,user.password )
-            if(1)
+               const passwordVerified  = await Hash.verify(password,user.password )
+            if(passwordVerified)
             { 
             const token =  Encryption.encrypt(user)
          
