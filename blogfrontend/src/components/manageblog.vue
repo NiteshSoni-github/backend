@@ -46,7 +46,7 @@
                             <v-icon small class="mr-2">edit</v-icon>
                           </router-link> -->
                             <v-icon @click='editDraft(item)' small class="mr-2">edit</v-icon>
-                          <v-icon small @click.stop="dialog = true">delete</v-icon>
+                          <v-icon small @click.stop="deleteDraftBlog(item.id)">delete</v-icon>
                         </template>
                         <template v-slot:no-data>
                           <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -69,7 +69,7 @@
 
                       <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
 
-                      <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+                      <v-btn color="green darken-1" text @click="deleteDraft(deletedraftid)">Agree</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -107,8 +107,7 @@
                       <router-link to="/readblog" exact>
                         <v-icon small class="mr-2">remove_red_eye</v-icon>
                       </router-link>
-
-                      <v-icon small @click.stop="dialog = true">delete</v-icon>
+                      <v-icon small @click.stop="dialog=true">delete</v-icon>
                     </template>
                     <template v-slot:no-data>
                       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -174,7 +173,7 @@
                         <v-icon small class="mr-2">edit</v-icon>
                       </router-link>
 
-                      <v-icon small @click.stop="dialog = true">delete</v-icon>
+                      <v-icon small @click.stop="getPublishBlogId(item.id)">delete</v-icon>
                     </template>
                     <template v-slot:no-data>
                       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -199,7 +198,7 @@
 
                     <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
 
-                    <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+                    <v-btn color="green darken-1" text @click="deletePublishBlog(deletePublishBlogId)">Agree</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -226,6 +225,8 @@ import HTTP from "../http";
 import router from "../router";
 export default {
   data: () => ({
+    deletedraftid:null,
+    deletePublishBlogId:null,
     data:[],
     draftData:[],
     publishedData:[],
@@ -269,7 +270,8 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    }
+    },
+ 
   },
 
   watch: {
@@ -307,32 +309,12 @@ export default {
           carbs: 24,
           protein: "07/01/2019"
         },
-        {
-          name: "Ice cream sandwich",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 9.0,
-          carbs: 37,
-          protein: "07/01/2019"
-        },
-        {
-          name: "Eclair",
-          calories: "News",
-          statusdraft: "Draft",
-          statuspublished: "Published",
-          statusfavourite: "Favourite",
-          fat: 16.0,
-          carbs: 23,
-          protein: "07/01/2019"
-        },
      
       ];
     },
     // -----------------   GET USER BLOGS  -------- //
     async getUserBlogs(){     
-
+    
       let token = localStorage.getItem('token');
        await axios
         .get("http://127.0.0.1:3333/getUserblogs", {
@@ -359,7 +341,8 @@ export default {
           let authorId = this.data[i].authorId ;
           let  id = this.data[i].id;
           let image = this.data[i].id;
-          this.draftData.push({'name':name,'calories':calories,'statusdraft':statusdraft,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image})
+          let discription = this.data[i].discription ;
+          this.draftData.push({'name':name,'calories':calories,'statusdraft':statusdraft,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image,'discription':discription})
            }
            else{
             let name = this.data[i].title ;
@@ -374,7 +357,8 @@ export default {
             let authorId = this.data[i].authorId ;
             let  id = this.data[i].id;
             let image = this.data[i].id;
-            this.publishedData.push({'name':name,'calories':calories,'statuspublished':statuspublished,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image})
+            let discription = this.data[i].discription ;
+            this.publishedData.push({'name':name,'calories':calories,'statuspublished':statuspublished,'fat':fat,'carbs':carbs,'protein':protein,'content':content,'authorID':authorId,'id':id,'image':image,'discription':discription})
 
            }
          }
@@ -383,10 +367,71 @@ export default {
         })
         
     }, 
+    // ----------- edit draft blog ----------------------//
     editDraft(obj){
-      localStorage.setItem('blog',obj);
-      this.$router.push({ name: "createblog" });
+      localStorage.setItem('error', JSON.stringify(obj))
+      this.$router.push({ name: "editblog" });
     } ,
+    // -------------get delete draft blog id-------------------//
+    deleteDraftBlog(item){
+      this.dialog = true;
+      this.deletedraftid=item;
+    },
+    //----------- delete draft ------------------------//
+    async deleteDraft(item){
+      let i;
+      for(i=0;i<this.draftData.length;i++)
+      {
+        if(this.draftData[i].id==item)
+        break;
+      }
+      this.draftData.splice(i,1);
+      this.dialog = false;
+      let URL = 'http://127.0.0.1:3333/deletedraft'
+      await axios.delete(
+        URL,
+        {
+        data:{
+          id:item
+        }}
+      );
+
+    },
+
+    //------- GET PUBLISHED BLOG ID FOR DELETEION  ---- //
+    getPublishBlogId(item){
+      this.dialog = true;
+      this.deletePublishBlogId=item;
+
+    },
+   // ---------- DELETE PUBLISHED BLOG -------------------- //
+   async deletePublishBlog(item){
+      let i;
+      for(i=0;i<this.publishedData.length;i++)
+      {
+        if(this.publishedData[i].id==item)
+        break;
+      }
+      this.publishedData.splice(i,1);
+      this.dialog = false;
+      let URL = 'http://127.0.0.1:3333/deletePublished'
+      await axios.delete(
+        URL,
+        {
+        data:{
+          id:item
+        }}
+      );
+
+    },
+
+
+
+
+
+
+
+    //- -----------------------------------------------------------------------------------//
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
