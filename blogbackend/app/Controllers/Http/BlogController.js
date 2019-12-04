@@ -5,6 +5,7 @@ const Hash = use('Hash')
 const Encryption = use('Encryption')
 const Helpers = use('Helpers')
 const fs = require('fs');
+var gm = require('gm').subClass({imageMagick: true}); // required for image compression
 class BlogController {
     async publishblog({request,response}){
         let {
@@ -16,14 +17,21 @@ class BlogController {
         } = request.all();
         const imag = request.file('image', {
             types: ['image'],
-            size: '6mb'
+            size: '10mb'
           })
 
           const image = new Date().getTime()+'.'+imag.subtype
           await imag.move(Helpers.publicPath('uploads/blogPicture'), {
             name: image,
           })
-          
+                 // -- GM USED FOR IMAGE COMPRESSION --------------------- //
+          gm('public/uploads/blogPicture/'+image).resize(400, 400)
+          .write('public/uploads/blogPicture/'+image, function (err) {
+            if (!err) console.log('done');
+            else
+            console.log('error in image compression');
+          });
+           //---/
             const decrypted = Encryption.decrypt(token)
             const authorName = decrypted.f_name
             const authorId = decrypted.id
@@ -62,13 +70,19 @@ class BlogController {
                 } = request.all();
               const imag = request.file('image', {
                   types: ['image'],
-                  size: '6mb'
+                  size: '10mb'
                 })
 
               const image = new Date().getTime()+'.'+imag.subtype
               await imag.move(Helpers.publicPath('uploads/draftPicture'), {
                 name: image,
-              })              
+              })       
+              gm('public/uploads/draftPicture/'+image).resize(400, 400)
+                  .write('public/uploads/draftPicture/'+image, function (err) {
+                    if (!err) console.log('done');
+                    else
+                    console.log('error in image compression');
+                });       
               const decrypted = Encryption.decrypt(token)
               const authorId = decrypted.id  
               const blog = await DraftBlog.create({

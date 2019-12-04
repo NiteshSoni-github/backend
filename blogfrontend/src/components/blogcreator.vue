@@ -76,7 +76,6 @@
 
             <v-col cols="12" sm="6" md="3" lg="3">
               <p>Thumbnail</p>
-              <!-- <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor> -->
               <v-file-input
                 background-color="white"
                 v-model="files"
@@ -138,13 +137,11 @@ Quill.register("modules/imageResize", ImageResize);
 
 import axios from "axios";
 import HTTP from "../http";
-import imageCompressor from "vue-image-compressor";
 import router from "../router";
 
 export default {
   components: {
     VueEditor,
-    imageCompressor
   },
   data() {
     return {
@@ -225,11 +222,7 @@ export default {
      this.setData();
   },
   methods: {
-    // getFiles(obj) {
-    //   alert('this');
-    //   this.image = obj.original.file;
-    //   console.log(this.image);
-    // },
+ 
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
     },
