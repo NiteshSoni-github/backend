@@ -127,12 +127,12 @@
                               required
                               hint="For example, Xyz122@#"
                               :append-icon="show2 ? 'visibility' : 'visibility_off'"
-                            :rules="[rules.required, rules.min]"
+                            
                               :type="show2 ? 'text' : 'password'"
                               name="input-10-2"
                               @click:append="show2 = !show2"
                             ></v-text-field>
-                              
+                              <!-- :rules="[rules.required, rules.min]" -->
                           </v-col>
                           <v-col cols="12">
                             <v-text-field
