@@ -76,17 +76,16 @@ s<template>
 
             <v-col cols="12" sm="6" md="3" lg="3">
               <p>Thumbnail</p>
-              <!-- <image-compressor :done="getFiles" :scale="scale" :quality="quality"></image-compressor> -->
+               <img width='200' height='100' v-bind:src="imagePreview" v-show="showPreview"/>
               <v-file-input
                 background-color="white"
                 v-model="files"
                 class="mb-n12"
                 color="deep-purple accent-4"
-                :rules="rules"
                 accept="image/png, image/jpeg, image/bmp"
                 placeholder="Pick an image"
                 prepend-icon="mdi-camera"
-                
+                v-on:change="handleFileUpload()"
                 outlined
               ></v-file-input>
             </v-col>
@@ -95,7 +94,7 @@ s<template>
             <v-col cols="12">
               <p>Blog</p>
               <v-card>
-                <vue-editor
+               <vue-editor
                   id="editor"
                   useCustomImageHandler
                   @image-added="handleImageAdded"
@@ -153,6 +152,8 @@ export default {
           imageResize: {}
         }
       },
+      showPreview: true,
+      imagePreview: '',
       image: "",
       scale: 100,
       quality: 50,
@@ -208,7 +209,10 @@ export default {
         "Wedding"
       ],
       discription: "",
-      category: ""
+      category: "",
+      isImageChange:false,
+      i:'',
+      id:'',
     };
   },
   watch: {
@@ -230,17 +234,24 @@ created() {
     if(localStorage.getItem('error'))
     {
       let blog = JSON.parse(localStorage.getItem('error'));
+      this.id = blog.id;
       this.title = blog.name;
       this.category = blog.calories;
       this.content = blog.content;
       this.discription = blog.discription;
+      this.i = blog.image;
+      this.imagePreview = "http://127.0.0.1:3333/uploads/draftPicture/"+blog.image;
       localStorage.removeItem('error');
-    }
+   }
   }
 },
   methods: {
-
-
+     handleFileUpload()
+    { 
+      this.isImageChange = true;    
+     this.imagePreview= URL.createObjectURL(this.files);   
+     
+    },
     setEditorContent: function() {
       this.content = "<p>dfgcncdc</p>";
     },
@@ -287,13 +298,23 @@ created() {
     async publish() {
       this.overlay = !this.overlay;
       let data = new FormData();
+      data.append("draft",true)
       data.append("title", this.title);
       data.append("category", this.category);
       data.append("content", this.content);
       data.append("discription", this.discription);
       data.append("token", localStorage.getItem("token"));
-      
+      data.append("blogId", this.id);
+      if(this.isImageChange)
+      {
       data.append("image", this.files);
+      data.append("isImageChange",true)
+      }
+      else
+      {
+        data.append("image", this.i);
+        
+      }
       let url = "http://127.0.0.1:3333/publishblog";
       let options = {
         headers: {
@@ -315,12 +336,23 @@ created() {
     async draft(){
     // this.overlay = !this.overlay
       let data = new FormData();
+     data.append("blogId", this.id);
+      data.append("draft",true)
       data.append("title", this.title);
       data.append("category", this.category);
       data.append("content", this.content);
       data.append("discription", this.discription);
       data.append("token", localStorage.getItem("token"));      
+      if(this.isImageChange)
+      {
       data.append("image", this.files);
+      data.append("isImageChange",true)
+      }
+      else
+      {
+        data.append("image", this.i);
+        
+      }
       let url = "http://127.0.0.1:3333/draftblog";
       let options = {
         headers: {

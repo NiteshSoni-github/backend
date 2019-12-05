@@ -15,12 +15,58 @@ class BlogController {
             discription,
             token
         } = request.all();
+        let image  ;
+        if(request.input('draft'))
+        {
+          if(request.input('isImageChange'))
+          {
+            const imag = request.file('image', {
+              types: ['image'],
+              size: '10mb'
+            })
+  
+            image = new Date().getTime()+'.'+imag.subtype
+            await imag.move(Helpers.publicPath('uploads/blogPicture'), {
+              name: image,
+            })
+                   // -- GM USED FOR IMAGE COMPRESSION --------------------- //
+            gm('public/uploads/blogPicture/'+image).resize(400, 400)
+            .write('public/uploads/blogPicture/'+image, function (err) {
+              if (!err) console.log('done');
+              else
+              console.log('error in image compression');
+            });
+          }
+          else
+          { 
+             image = request.input('image') ;
+             gm('public/uploads/draftPicture/'+image)
+            .write('public/uploads/blogPicture/'+image, function (err) {
+              if (!err) console.log('done');
+              else
+              console.log('error in image compression');
+            });
+          }
+          let id = request.input('blogId');
+            let post = await DraftBlog.query().where('id',id).first() ;
+            const temp = post.toJSON(); 
+            fs.unlink("./public/uploads/draftPicture/"+temp.image, (err) => {
+              if (err) {
+                  console.log("failed to delete local image:"+err);
+              } else {
+                  console.log('successfully deleted local image');                                
+              }
+            });
+           await post.delete();
+
+        }
+        else{
         const imag = request.file('image', {
             types: ['image'],
             size: '10mb'
           })
 
-          const image = new Date().getTime()+'.'+imag.subtype
+           image = new Date().getTime()+'.'+imag.subtype
           await imag.move(Helpers.publicPath('uploads/blogPicture'), {
             name: image,
           })
@@ -31,6 +77,7 @@ class BlogController {
             else
             console.log('error in image compression');
           });
+        }
            //---/
             const decrypted = Encryption.decrypt(token)
             const authorName = decrypted.f_name
@@ -68,21 +115,65 @@ class BlogController {
               discription,
               token
                 } = request.all();
-              const imag = request.file('image', {
-                  types: ['image'],
-                  size: '10mb'
-                })
+                let image ;
+              if(request.input('draft'))
+             {
+          if(request.input('isImageChange'))
+          {
+            const imag = request.file('image', {
+              types: ['image'],
+              size: '10mb'
+            })
+  
+            image = new Date().getTime()+'.'+imag.subtype
+            await imag.move(Helpers.publicPath('uploads/draftPicture'), {
+              name: image,
+            })
+                   // -- GM USED FOR IMAGE COMPRESSION --------------------- //
+            gm('public/uploads/draftPicture/'+image).resize(400, 400)
+            .write('public/uploads/draftPicture/'+image, function (err) {
+              if (!err) console.log('done');
+              else
+              console.log('error in image compression');
+            });
+          }
+          else
+          { 
+             image = request.input('image') ;
+          }
+          let id = request.input('blogId');
+            let post = await DraftBlog.query().where('id',id).first() ;
+            const temp = post.toJSON(); 
+            fs.unlink("./public/uploads/draftPicture/"+temp.image, (err) => {
+              if (err) {
+                  console.log("failed to delete local image:"+err);
+              } else {
+                  console.log('successfully deleted local image');                                
+              }
+            });
+           await post.delete();
 
-              const image = new Date().getTime()+'.'+imag.subtype
-              await imag.move(Helpers.publicPath('uploads/draftPicture'), {
-                name: image,
-              })       
-              gm('public/uploads/draftPicture/'+image).resize(400, 400)
-                  .write('public/uploads/draftPicture/'+image, function (err) {
-                    if (!err) console.log('done');
-                    else
-                    console.log('error in image compression');
-                });       
+        }
+        else{
+        const imag = request.file('image', {
+            types: ['image'],
+            size: '10mb'
+          })
+
+           image = new Date().getTime()+'.'+imag.subtype
+          await imag.move(Helpers.publicPath('uploads/draftPicture'), {
+            name: image,
+          })
+                 // -- GM USED FOR IMAGE COMPRESSION --------------------- //
+          gm('public/uploads/draftPicture/'+image).resize(400, 400)
+          .write('public/uploads/draftPicture/'+image, function (err) {
+            if (!err) console.log('done');
+            else
+            console.log('error in image compression');
+          });
+        }
+
+                     
               const decrypted = Encryption.decrypt(token)
               const authorId = decrypted.id  
               const blog = await DraftBlog.create({
@@ -139,6 +230,7 @@ class BlogController {
             await post.delete(); 
 
             }
+
   // ------------- TESTING COMPONENT ------//
     async testing({request,response}){
 
